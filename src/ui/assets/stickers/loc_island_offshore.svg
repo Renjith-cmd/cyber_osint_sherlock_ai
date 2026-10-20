@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <path d="M 22 84 Q 60 74, 98 84 Z" fill="#E8DEC8" stroke="#191629" stroke-width="2"/>
+  <!-- Palm tree -->
+  <path d="M 52 80 Q 56 56, 62 48" stroke="#191629" stroke-width="3" fill="none"/>
+  <path d="M 62 48 Q 50 40, 42 46" stroke="#3EAE7C" stroke-width="3" fill="none"/>
+  <path d="M 62 48 Q 66 36, 74 38" stroke="#3EAE7C" stroke-width="3" fill="none"/>
+  <path d="M 62 48 Q 74 46, 82 54" stroke="#3EAE7C" stroke-width="3" fill="none"/>
+  <circle cx="78" cy="74" r="6" fill="#F5B18D" stroke="#191629" stroke-width="1.8"/>
+</svg>

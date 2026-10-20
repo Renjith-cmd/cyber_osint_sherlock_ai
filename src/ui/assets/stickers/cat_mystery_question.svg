@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <text x="60" y="32" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#F5B18D" text-anchor="middle">?</text>
+  <polygon points="38,64 28,34 52,50" fill="#191629"/>
+  <polygon points="82,64 92,34 68,50" fill="#191629"/>
+  <ellipse cx="60" cy="72" rx="28" ry="24" fill="#191629"/>
+  <circle cx="49" cy="71" r="6" fill="#FFFFFF"/>
+  <circle cx="50" cy="71" r="3.5" fill="#191629"/>
+  <circle cx="71" cy="71" r="6" fill="#FFFFFF"/>
+  <circle cx="70" cy="71" r="3.5" fill="#191629"/>
+  <circle cx="60" cy="78" r="2.5" fill="#F5B18D"/>
+</svg>

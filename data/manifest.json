@@ -1,0 +1,22 @@
+{
+  "dataset_id": "zagat_fodors_restaurants",
+  "title": "Zagat-Fodor's Restaurant Benchmark for Entity Resolution",
+  "domain": "restaurants_and_food_service",
+  "license_name": "Creative Commons Zero 1.0 Universal (CC0 1.0)",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "authors": "Sheila Tejada, Craig A. Knoblock, Steven Minton (2001); curated by Rebecca Steorts et al. (2018)",
+  "provenance_citation": "Tejada, S., Knoblock, C. A., & Minton, S. (2001). Learning object identification rules for information integration. Information Systems, 26(8), 607-633. Curated in cleanzr/fasthash (Chen, Shrivastava, Steorts, 2018; Annals of Applied Statistics).",
+  "canonical_source_url": "https://raw.githubusercontent.com/cleanzr/fasthash/master/data/Restaurant.csv",
+  "sha256_checksum": "9aaada16f7bfacda72d7c5182852dc3d1bd4301fe834e955aacf2c3c655260fd",
+  "expected_records_count": 864,
+  "expected_entities_count": 752,
+  "expected_duplicates_count": 112,
+  "field_schema_mapping": {
+    "column_0_name": "raw_name",
+    "column_1_address": "structured_attributes['address']",
+    "column_2_city": "structured_attributes['city']",
+    "column_3_cuisine": "structured_attributes['cuisine']",
+    "column_4_class": "ground_truth_entity_id (Oracle only)"
+  },
+  "redistribution_policy": "CC0 1.0 Universal per CRAN 'restaurant' v0.1.0; cleanzr/fasthash requires academic citation and author contact for commercial inquiries; underlying listings derive from Zagat/Fodor's commercial guidebooks. Raw CSV excluded from Git."
+}

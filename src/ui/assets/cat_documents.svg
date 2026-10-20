@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Detective Cat with Evidence Folder -->
+  <circle cx="100" cy="100" r="92" fill="#FBF9F5" stroke="#EBE4DC" stroke-width="2"/>
+  <!-- Body -->
+  <path d="M 40 190 Q 50 140, 100 135 Q 150 140, 160 190 Z" fill="#191629"/>
+
+  <!-- Ears with deerstalker cap -->
+  <polygon points="58,80 44,40 78,60" fill="#191629"/>
+  <polygon points="142,80 156,40 122,60" fill="#191629"/>
+  <!-- Cap -->
+  <path d="M 64,68 Q 100,32 136,68 Z" fill="#E8DEC8" stroke="#191629" stroke-width="2"/>
+  <path d="M 52,68 Q 100,58 148,68 Q 100,78 52,68 Z" fill="#E8DEC8" stroke="#191629" stroke-width="2"/>
+
+  <!-- Head -->
+  <ellipse cx="100" cy="92" rx="42" ry="36" fill="#191629"/>
+
+  <!-- Eyes -->
+  <ellipse cx="86" cy="90" rx="8" ry="11" fill="#FFFFFF"/>
+  <circle cx="87" cy="90" r="5" fill="#191629"/>
+  <circle cx="85" cy="87" r="2.2" fill="#FFFFFF"/>
+
+  <ellipse cx="114" cy="90" rx="8" ry="11" fill="#FFFFFF"/>
+  <circle cx="113" cy="90" r="5" fill="#191629"/>
+  <circle cx="111" cy="87" r="2.2" fill="#FFFFFF"/>
+
+  <!-- Nose -->
+  <polygon points="100,100 97,96 103,96" fill="#F5B18D"/>
+
+  <!-- Evidence Folder held in paws -->
+  <g transform="translate(62, 126)">
+    <!-- Folder Back -->
+    <path d="M 0 10 L 25 10 L 33 16 L 76 16 L 76 56 L 0 56 Z" fill="#E8DEC8" stroke="#191629" stroke-width="2"/>
+    <!-- Papers inside -->
+    <rect x="6" y="6" width="64" height="40" rx="2" fill="#FFFFFF" stroke="#191629" stroke-width="1.5"/>
+    <line x1="14" y1="16" x2="48" y2="16" stroke="#191629" stroke-width="2"/>
+    <line x1="14" y1="24" x2="60" y2="24" stroke="#F5B18D" stroke-width="2"/>
+    <line x1="14" y1="32" x2="52" y2="32" stroke="#191629" stroke-width="2"/>
+    <!-- Folder Front Cover -->
+    <path d="M 0 20 L 76 20 L 76 56 L 0 56 Z" fill="#F5B18D" stroke="#191629" stroke-width="2"/>
+    <!-- Paws holding folder -->
+    <ellipse cx="12" cy="38" rx="8" ry="6" fill="#191629"/>
+    <ellipse cx="64" cy="38" rx="8" ry="6" fill="#191629"/>
+  </g>
+</svg>

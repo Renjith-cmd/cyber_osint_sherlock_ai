@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <polygon points="30,46 48,38 72,46 90,38 90,88 72,96 48,88 30,96" fill="#FFFFFF" stroke="#191629" stroke-width="2"/>
+  <!-- Map Pin -->
+  <path d="M 60 42 C 53 42, 48 47, 48 54 C 48 64, 60 76, 60 76 C 60 76, 72 64, 72 54 C 72 47, 67 42, 60 42 Z" fill="#F5B18D" stroke="#191629" stroke-width="2"/>
+  <circle cx="60" cy="53" r="3.5" fill="#FFFFFF"/>
+</svg>

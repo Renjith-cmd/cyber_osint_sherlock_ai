@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <!-- Detective Cat Hero with Deerstalker and Magnifying Glass -->
+  <defs>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#191629" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Speech bubble "Small clues. Big answers." -->
+  <g transform="translate(180, 20)">
+    <path d="M 10 35 C 10 20, 25 10, 60 10 C 95 10, 110 20, 110 35 C 110 50, 95 60, 60 60 C 45 60, 30 65, 20 72 C 24 63, 20 60, 10 55 C 10 50, 10 40, 10 35 Z" fill="#F7F4F0" stroke="#191629" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="60" y="32" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" fill="#191629" text-anchor="middle">Small clues.</text>
+    <text x="60" y="47" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#F5B18D" text-anchor="middle">Big answers.</text>
+  </g>
+
+  <!-- Cat Body & Coat -->
+  <path d="M 70 290 Q 70 230, 110 215 Q 150 200, 190 215 Q 230 230, 230 290 Z" fill="#191629"/>
+  <!-- Detective Cape Collar / Lapels -->
+  <path d="M 115 215 L 150 250 L 125 290" stroke="#F7F4F0" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M 185 215 L 150 250 L 175 290" stroke="#F7F4F0" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Bowtie / Badge -->
+  <circle cx="150" cy="250" r="6" fill="#F5B18D"/>
+  <path d="M 140 248 L 144 252 L 140 256 Z" fill="#F5B18D"/>
+  <path d="M 160 248 L 156 252 L 160 256 Z" fill="#F5B18D"/>
+
+  <!-- Cat Head -->
+  <!-- Left Ear -->
+  <path d="M 90 140 L 75 80 L 120 105 Z" fill="#191629" stroke="#191629" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 92 130 L 83 92 L 114 110 Z" fill="#F7F4F0"/>
+  <!-- Right Ear -->
+  <path d="M 210 140 L 225 80 L 180 105 Z" fill="#191629" stroke="#191629" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 208 130 L 217 92 L 186 110 Z" fill="#F7F4F0"/>
+
+  <!-- Head Base -->
+  <ellipse cx="150" cy="160" rx="65" ry="55" fill="#191629"/>
+
+  <!-- Deerstalker Hat -->
+  <!-- Cap Dome -->
+  <path d="M 95 118 Q 150 68, 205 118 Z" fill="#E8DEC8" stroke="#191629" stroke-width="3"/>
+  <!-- Plaid Cross Pattern on Cap -->
+  <path d="M 125 90 Q 150 115, 175 118" stroke="#191629" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 150 78 L 150 118" stroke="#191629" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 175 90 Q 150 115, 125 118" stroke="#191629" stroke-width="2" fill="none" opacity="0.4"/>
+  <!-- Cap Front Visor -->
+  <path d="M 85 118 Q 150 108, 215 118 Q 150 132, 85 118 Z" fill="#E8DEC8" stroke="#191629" stroke-width="3"/>
+  <!-- Cap Back Visor -->
+  <path d="M 98 120 Q 90 126, 85 120" stroke="#191629" stroke-width="3" fill="none"/>
+  <!-- Top Ribbon Tie / Knot -->
+  <ellipse cx="150" cy="74" rx="7" ry="5" fill="#191629"/>
+  <path d="M 145 74 Q 138 68, 142 62 Q 148 66, 147 73 Z" fill="#191629"/>
+  <path d="M 155 74 Q 162 68, 158 62 Q 152 66, 153 73 Z" fill="#191629"/>
+
+  <!-- Cat Eyes (Large, expressive anime-cat eyes) -->
+  <!-- Left Eye -->
+  <ellipse cx="125" cy="158" rx="14" ry="18" fill="#F7F4F0"/>
+  <ellipse cx="127" cy="158" rx="10" ry="14" fill="#191629"/>
+  <circle cx="124" cy="153" r="4.5" fill="#FFFFFF"/>
+  <circle cx="130" cy="164" r="2.5" fill="#FFFFFF"/>
+
+  <!-- Right Eye (Behind magnifying glass) -->
+  <ellipse cx="175" cy="158" rx="14" ry="18" fill="#F7F4F0"/>
+  <ellipse cx="177" cy="158" rx="10" ry="14" fill="#191629"/>
+  <circle cx="174" cy="153" r="4.5" fill="#FFFFFF"/>
+  <circle cx="180" cy="164" r="2.5" fill="#FFFFFF"/>
+
+  <!-- Nose & Whiskers -->
+  <polygon points="150,174 146,168 154,168" fill="#F5B18D"/>
+  <path d="M 150 174 Q 144 182, 138 178" stroke="#F7F4F0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 150 174 Q 156 182, 162 178" stroke="#F7F4F0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Whiskers -->
+  <line x1="95" y1="170" x2="65" y2="165" stroke="#F7F4F0" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="95" y1="178" x2="62" y2="182" stroke="#F7F4F0" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="205" y1="170" x2="235" y2="165" stroke="#F7F4F0" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="205" y1="178" x2="238" y2="182" stroke="#F7F4F0" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Magnifying Glass held in paw -->
+  <!-- Glass Handle -->
+  <line x1="225" y1="230" x2="265" y2="275" stroke="#E8DEC8" stroke-width="10" stroke-linecap="round"/>
+  <line x1="225" y1="230" x2="265" y2="275" stroke="#191629" stroke-width="4" stroke-linecap="round"/>
+  <!-- Glass Rim -->
+  <circle cx="215" cy="215" r="38" fill="none" stroke="#191629" stroke-width="8"/>
+  <circle cx="215" cy="215" r="35" fill="rgba(245, 177, 141, 0.25)" stroke="#F7F4F0" stroke-width="2"/>
+  <!-- Glass Reflection Arc -->
+  <path d="M 195 195 A 28 28 0 0 1 235 195" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
+
+  <!-- Cat Paw holding handle -->
+  <circle cx="232" cy="240" r="14" fill="#191629"/>
+  <circle cx="225" cy="235" r="4" fill="#F7F4F0"/>
+  <circle cx="233" cy="232" r="4" fill="#F7F4F0"/>
+  <circle cx="240" cy="236" r="4" fill="#F7F4F0"/>
+</svg>

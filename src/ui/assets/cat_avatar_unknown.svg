@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <!-- Unknown Person Cat Avatar (Mystery cat with question mark) -->
+  <circle cx="80" cy="80" r="76" fill="#FBF9F5" stroke="#EBE4DC" stroke-width="2"/>
+  <!-- Dark silhouette body -->
+  <path d="M 36 152 Q 44 122, 80 120 Q 116 122, 124 152 Z" fill="#191629"/>
+
+  <!-- Ears -->
+  <polygon points="46,74 36,36 66,54" fill="#191629"/>
+  <polygon points="46,68 40,44 60,56" fill="#EDE7DD"/>
+  <polygon points="114,74 124,36 94,54" fill="#191629"/>
+  <polygon points="114,68 120,44 100,56" fill="#EDE7DD"/>
+
+  <!-- Question mark floating above head -->
+  <g transform="translate(80, 28)">
+    <text x="0" y="0" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#F5B18D" text-anchor="middle" stroke="#191629" stroke-width="1.2">?</text>
+  </g>
+
+  <!-- Head -->
+  <ellipse cx="80" cy="84" rx="38" ry="32" fill="#191629"/>
+
+  <!-- Inquisitive wide round eyes -->
+  <!-- Left Eye -->
+  <circle cx="68" cy="82" r="8" fill="#FFFFFF"/>
+  <circle cx="69" cy="82" r="5" fill="#191629"/>
+  <circle cx="67" cy="79" r="2.5" fill="#FFFFFF"/>
+  <!-- Right Eye -->
+  <circle cx="92" cy="82" r="8" fill="#FFFFFF"/>
+  <circle cx="91" cy="82" r="5" fill="#191629"/>
+  <circle cx="89" cy="79" r="2.5" fill="#FFFFFF"/>
+
+  <!-- Tiny nose & curious mouth -->
+  <circle cx="80" cy="91" r="2.5" fill="#F5B18D"/>
+  <path d="M 80 93.5 Q 80 97, 80 97" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+  <!-- Whiskers -->
+  <line x1="52" y1="88" x2="36" y2="87" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <line x1="52" y1="94" x2="34" y2="96" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <line x1="108" y1="88" x2="124" y2="87" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <line x1="108" y1="94" x2="126" y2="96" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Cat Paw Print Motif -->
+  <!-- Main Pad -->
+  <path d="M 50 48 C 36 48, 28 62, 34 76 C 40 88, 60 88, 66 76 C 72 62, 64 48, 50 48 Z" fill="#191629"/>
+  <!-- Toe 1 -->
+  <ellipse cx="26" cy="42" rx="7.5" ry="10" transform="rotate(-20 26 42)" fill="#191629"/>
+  <!-- Toe 2 -->
+  <ellipse cx="42" cy="32" rx="7.5" ry="11" transform="rotate(-6 42 32)" fill="#191629"/>
+  <!-- Toe 3 -->
+  <ellipse cx="58" cy="32" rx="7.5" ry="11" transform="rotate(6 58 32)" fill="#191629"/>
+  <!-- Toe 4 -->
+  <ellipse cx="74" cy="42" rx="7.5" ry="10" transform="rotate(20 74 42)" fill="#191629"/>
+</svg>

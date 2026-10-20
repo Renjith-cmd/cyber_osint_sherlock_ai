@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <polygon points="38,56 28,26 52,42" fill="#191629"/>
+  <polygon points="82,56 92,26 68,42" fill="#191629"/>
+  <ellipse cx="60" cy="65" rx="28" ry="24" fill="#191629"/>
+  <circle cx="49" cy="64" r="5" fill="#FFFFFF"/>
+  <!-- Magnified Left Eye -->
+  <circle cx="71" cy="64" r="14" fill="#FFFFFF" stroke="#F5B18D" stroke-width="3"/>
+  <circle cx="71" cy="64" r="8" fill="#191629"/>
+  <circle cx="68" cy="61" r="3" fill="#FFFFFF"/>
+</svg>

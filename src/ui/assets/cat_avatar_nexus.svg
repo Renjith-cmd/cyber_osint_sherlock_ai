@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <!-- Nexus Holdings Corporate Cat Avatar (in business suit & tie) -->
+  <circle cx="80" cy="80" r="76" fill="#FBF9F5" stroke="#EBE4DC" stroke-width="2"/>
+  <!-- Dark Suit Shoulders -->
+  <path d="M 30 152 Q 38 118, 80 114 Q 122 118, 130 152 Z" fill="#191629"/>
+  <!-- White Dress Shirt V-neck -->
+  <polygon points="66,115 80,140 94,115" fill="#FFFFFF"/>
+  <!-- Dark Business Necktie -->
+  <polygon points="76,122 84,122 82,148 78,148" fill="#191629"/>
+  <polygon points="78,148 82,148 80,154" fill="#191629"/>
+
+  <!-- Ears (sharp, corporate, upright) -->
+  <polygon points="46,70 34,28 66,48" fill="#191629"/>
+  <polygon points="46,64 38,36 60,50" fill="#E8DEC8"/>
+  <polygon points="114,70 126,28 94,48" fill="#191629"/>
+  <polygon points="114,64 122,36 100,50" fill="#E8DEC8"/>
+
+  <!-- Head -->
+  <ellipse cx="80" cy="78" rx="40" ry="34" fill="#191629"/>
+
+  <!-- Calm confident anime cat eyes -->
+  <!-- Left Eye -->
+  <ellipse cx="66" cy="76" rx="8" ry="10" fill="#FFFFFF"/>
+  <ellipse cx="67" cy="76" rx="5.5" ry="7.5" fill="#191629"/>
+  <circle cx="65" cy="73" r="2.5" fill="#FFFFFF"/>
+  <!-- Right Eye -->
+  <ellipse cx="94" cy="76" rx="8" ry="10" fill="#FFFFFF"/>
+  <ellipse cx="93" cy="76" rx="5.5" ry="7.5" fill="#191629"/>
+  <circle cx="91" cy="73" r="2.5" fill="#FFFFFF"/>
+
+  <!-- Subtle nose & mouth -->
+  <polygon points="80,86 78,83 82,83" fill="#F5B18D"/>
+  <path d="M 80 86 Q 77 91, 74 89" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M 80 86 Q 83 91, 86 89" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+  <!-- Whiskers -->
+  <line x1="50" y1="84" x2="32" y2="82" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="50" y1="89" x2="30" y2="92" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="110" y1="84" x2="128" y2="82" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="110" y1="89" x2="130" y2="92" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

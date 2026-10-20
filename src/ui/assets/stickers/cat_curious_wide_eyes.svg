@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <polygon points="36,52 24,20 50,38" fill="#191629"/>
+  <polygon points="84,52 96,20 70,38" fill="#191629"/>
+  <ellipse cx="60" cy="65" rx="30" ry="26" fill="#191629"/>
+  <!-- Giant anime round eyes -->
+  <circle cx="46" cy="62" r="11" fill="#FFFFFF"/>
+  <circle cx="47" cy="62" r="8" fill="#191629"/>
+  <circle cx="44" cy="59" r="3.5" fill="#FFFFFF"/>
+  <circle cx="74" cy="62" r="11" fill="#FFFFFF"/>
+  <circle cx="73" cy="62" r="8" fill="#191629"/>
+  <circle cx="70" cy="59" r="3.5" fill="#FFFFFF"/>
+  <circle cx="60" cy="74" r="2.5" fill="#F5B18D"/>
+</svg>

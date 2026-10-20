@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sherlock AI — Investigation & Epistemic Graph Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>">
+</head>
+<body class="dark-theme">
+  <!-- Top Header / Greeting Bar matching reference mockup -->
+  <header class="app-header" role="banner">
+    <!-- Top Left Organic Paw Cutout Tab -->
+    <div class="header-paw-tab" title="Sherlock AI">
+      <img src="/static/assets/cat_paw.svg" class="header-paw-img" alt="Cat Paw Motif">
+    </div>
+
+    <div class="header-inner">
+      <!-- Greeting and Tagline -->
+      <div class="header-greeting-block">
+        <div class="greeting-pre">Good morning,</div>
+        <h1 class="greeting-main">Ready to uncover the truth?</h1>
+        <p class="greeting-sub">Find connections. Verify claims. Build the bigger picture.</p>
+      </div>
+
+      <!-- Right Action & Utility Cluster -->
+      <div class="header-right-cluster">
+        <!-- Global Search Pill -->
+        <div class="header-search-pill">
+          <span class="search-pill-icon">🔍</span>
+          <input type="search" id="global-header-search" class="header-search-input" placeholder="Search entities, people, companies..." aria-label="Global Search">
+        </div>
+
+        <!-- Notification Bell -->
+        <button class="header-icon-btn" id="btn-notifications" title="System Notifications" aria-label="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </button>
+
+        <!-- User Profile Avatar Pill -->
+        <button class="header-avatar-btn" id="btn-user-profile" title="Investigator Profile" aria-label="Investigator Profile">R</button>
+
+        <!-- Active Investigation Context Selector -->
+        <div class="header-case-pill">
+          <span class="case-pill-prefix">Case:</span>
+          <select id="active-inv-select" class="case-select-dropdown" aria-label="Select Active Investigation">
+            <option value="" disabled selected>Select investigation...</option>
+          </select>
+        </div>
+
+        <!-- Quick Demo Case Button -->
+        <button id="btn-load-demo-header" class="btn btn-dark-pill btn-sm" title="Load Fictional Synthetic Demo Case">Load Demo</button>
+
+        <!-- Main Peach Action Button -->
+        <button id="btn-quick-new-header" class="btn btn-peach-pill" title="Create New Investigation">+ New investigation &gt;</button>
+
+        <!-- System Status Badges -->
+        <div class="header-status-pills">
+          <span id="backend-badge" class="status-pill status-pill-neutral">Backend: rule</span>
+          <span id="persistence-badge" class="status-pill status-pill-warning" title="Storage durability depends on the configured database.">Storage status</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Epistemic Storage & Safety Notice Banner -->
+  <aside id="storage-notice-banner" class="epistemic-banner" role="complementary" aria-label="System Notice">
+    <div class="banner-inner">
+      <span class="banner-icon">🛡️</span>
+      <span id="storage-notice-text" class="banner-message">
+        Storage durability depends on the configured database. Automated extraction is UNREVIEWED by default and does not establish factual truth.
+      </span>
+      <button id="btn-dismiss-banner" class="banner-close" aria-label="Dismiss banner">×</button>
+    </div>
+  </aside>
+
+  <!-- Main Application Workspace Layout -->
+  <div class="app-shell">
+    <!-- Desktop Sidebar Navigation matching reference mockup -->
+    <aside class="app-sidebar" aria-label="Primary Navigation">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-brand">
+        <div class="brand-avatar-wrap">
+          <img src="/static/assets/sherlock_logo.svg" class="sidebar-logo-img" alt="Sherlock AI Logo">
+        </div>
+        <div class="sidebar-brand-meta">
+          <h2 class="sidebar-brand-title">Sherlock AI</h2>
+          <span class="sidebar-brand-sub">AI-Powered Investigations</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav-list" aria-label="Sidebar Menu">
+        <button class="nav-tab-btn active" data-tab="tab-dashboard" id="nav-btn-dashboard">
+          <span class="nav-tab-icon">🏠</span>
+          <span class="nav-tab-label">Overview</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-investigations" id="nav-btn-investigations">
+          <span class="nav-tab-icon">📁</span>
+          <span class="nav-tab-label">Investigations</span>
+          <span id="nav-count-cases" class="pill-counter">0</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-entities" id="nav-btn-entities">
+          <span class="nav-tab-icon">👤</span>
+          <span class="nav-tab-label">Entities</span>
+          <span id="nav-count-entities" class="pill-counter">0</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-claims" id="nav-btn-claims">
+          <span class="nav-tab-icon">📑</span>
+          <span class="nav-tab-label">Evidence</span>
+          <span id="nav-count-claims" class="pill-counter">0</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-graph" id="nav-btn-graph">
+          <span class="nav-tab-icon">🕸️</span>
+          <span class="nav-tab-label">Graph</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-report" id="nav-btn-report">
+          <span class="nav-tab-icon">📊</span>
+          <span class="nav-tab-label">Reports</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-documents" id="nav-btn-documents">
+          <span class="nav-tab-icon">📄</span>
+          <span class="nav-tab-label">Documents</span>
+          <span id="nav-count-docs" class="pill-counter">0</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-resolution" id="nav-btn-resolution">
+          <span class="nav-tab-icon">🔀</span>
+          <span class="nav-tab-label">Resolution</span>
+          <span id="nav-count-proposals" class="pill-counter">0</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-settings" id="nav-btn-settings">
+          <span class="nav-tab-icon">⚙️</span>
+          <span class="nav-tab-label">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Bottom Peeking Cat Illustration Motif -->
+      <div class="sidebar-peeking-corner" aria-hidden="true">
+        <img src="/static/assets/cat_peek.svg" class="sidebar-peeking-cat" alt="Peeking Detective Cat">
+      </div>
+    </aside>
+
+    <!-- Main Screens Viewport -->
+    <main class="app-main-content" id="main-content" role="main">
+      <!-- Notification Toast Container -->
+      <div id="toast-container" class="toast-stack" aria-live="polite"></div>
+
+      <!-- ===================================================================
+           SCREEN 1: DASHBOARD (Exact Reference Mockup Layout)
+           =================================================================== -->
+      <section id="tab-dashboard" class="screen-view active" aria-labelledby="heading-dashboard">
+        <!-- Hidden elements to preserve JS bindings -->
+        <span id="heading-dashboard" class="visually-hidden">Investigation Dashboard</span>
+        <span id="dashboard-inv-desc" class="visually-hidden"></span>
+        <span id="dashboard-status-tag" class="visually-hidden"></span>
+        <button id="btn-refresh-dashboard" class="visually-hidden" aria-hidden="true"></button>
+        <span id="m-docs-val" class="visually-hidden">0</span>
+        <span id="m-docs-sub" class="visually-hidden"></span>
+        <span id="m-entities-val" class="visually-hidden">0</span>
+        <span id="m-entities-sub" class="visually-hidden"></span>
+        <span id="m-claims-val" class="visually-hidden">0</span>
+        <span id="m-claims-sub" class="visually-hidden"></span>
+        <span id="m-rels-val" class="visually-hidden">0</span>
+        <span id="m-rels-sub" class="visually-hidden"></span>
+        <span id="m-review-val" class="visually-hidden">0</span>
+        <span id="m-review-sub" class="visually-hidden"></span>
+        <span id="m-evidence-val" class="visually-hidden">0</span>
+        <span id="m-evidence-sub" class="visually-hidden"></span>
+
+        <!-- Active Disclaimers & Epistemic Boundaries Card (if warnings exist) -->
+        <div class="cream-panel-card mb-4" id="dashboard-warnings-card" style="display: none;">
+          <div class="card-header-row">
+            <h3 class="panel-card-title text-plum">System Warnings & Epistemic Limitations</h3>
+            <span class="status-pill status-pill-warning">Audit Boundary</span>
+          </div>
+          <ul id="dashboard-warnings-list" class="styled-bullet-list"></ul>
+        </div>
+
+        <!-- 2-Column Split Layout matching image_1.png -->
+        <div class="dashboard-split-layout">
+          <!-- LEFT / MAIN COLUMN -->
+          <div class="dashboard-main-col">
+            <!-- 1. Tracked Entities Card -->
+            <div class="cream-panel-card tracked-entities-panel">
+              <div class="card-header-row">
+                <div class="card-header-left">
+                  <span class="card-header-icon">👥</span>
+                  <div>
+                    <h3 class="panel-card-title text-plum">Tracked Entities</h3>
+                    <p class="panel-card-sub text-muted">Recent entities from your investigations</p>
+                  </div>
+                </div>
+                <button class="link-btn-pill" id="btn-view-all-entities">View all →</button>
+              </div>
+
+              <!-- Dynamic Tracked Entities Grid -->
+              <div class="tracked-entities-grid" id="tracked-entities-container">
+                <div class="empty-state-card" style="grid-column: 1 / -1; padding: 24px;">
+                  <span class="empty-icon">👥</span>
+                  <div class="empty-title text-plum">No Entities Tracked Yet</div>
+                  <div class="empty-sub">Upload documents or load an investigation to view tracked entities.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Dual Cards Row: Recent Investigations & Relationship Graph -->
+            <div class="dashboard-dual-grid">
+              <!-- Left: Recent Investigations -->
+              <div class="cream-panel-card">
+                <div class="card-header-row">
+                  <div class="card-header-left">
+                    <span class="card-header-icon">📄</span>
+                    <div>
+                      <h3 class="panel-card-title text-plum">Recent Investigations</h3>
+                      <p class="panel-card-sub text-muted">Your latest investigation sessions</p>
+                    </div>
+                  </div>
+                  <button class="link-btn-pill" id="btn-goto-investigations">View all →</button>
+                </div>
+
+                <!-- Dynamic Recent Investigation Sessions List -->
+                <div class="recent-inv-list" id="recent-investigations-list-ui">
+                  <div class="text-center text-muted" style="padding: 24px;">Loading recent investigations...</div>
+                </div>
+
+                <!-- Hidden table for JS binding -->
+                <table class="visually-hidden" id="table-recent-investigations">
+                  <tbody id="tbody-recent-investigations"></tbody>
+                </table>
+              </div>
+
+              <!-- Right: Relationship Graph Preview -->
+              <div class="cream-panel-card">
+                <div class="card-header-row">
+                  <div class="card-header-left">
+                    <span class="card-header-icon">🕸️</span>
+                    <div>
+                      <h3 class="panel-card-title text-plum">Relationship Graph</h3>
+                      <p class="panel-card-sub text-muted">Entity connections across your investigation</p>
+                    </div>
+                  </div>
+                  <button class="link-btn-pill" id="btn-quick-view-graph">View all →</button>
+                </div>
+
+                <!-- Interactive Mini Graph Visual with Cat Avatars -->
+                <div class="graph-preview-container">
+                  <svg class="graph-preview-svg" viewBox="0 0 460 300" width="100%" height="240">
+                    <defs>
+                      <marker id="arrow" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#191629"/>
+                      </marker>
+                      <marker id="arrow-review" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#F5B18D"/>
+                      </marker>
+                      <clipPath id="circle-clip">
+                        <circle cx="20" cy="20" r="18"/>
+                      </clipPath>
+                    </defs>
+
+                    <!-- Edges with labels -->
+                    <!-- John Watson -> Nexus Holdings (WORKS_FOR) -->
+                    <line x1="80" y1="180" x2="190" y2="100" stroke="#191629" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="110" y="130" width="64" height="18" rx="9" fill="#F6F0E9"/>
+                    <text x="142" y="142" font-size="9" font-weight="700" fill="#191629" text-anchor="middle">WORKS_FOR</text>
+
+                    <!-- Nexus Holdings -> Apex Corp (OWNS) -->
+                    <line x1="220" y1="100" x2="330" y2="100" stroke="#191629" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="256" y="91" width="40" height="18" rx="9" fill="#F6F0E9"/>
+                    <text x="276" y="103" font-size="9" font-weight="700" fill="#191629" text-anchor="middle">OWNS</text>
+
+                    <!-- John Watson -> Riverside Holdings (ASSOCIATED_WITH) -->
+                    <line x1="80" y1="180" x2="190" y2="230" stroke="#191629" stroke-width="2"/>
+                    <rect x="110" y="202" width="86" height="18" rx="9" fill="#F6F0E9"/>
+                    <text x="153" y="214" font-size="8.5" font-weight="700" fill="#191629" text-anchor="middle">ASSOCIATED_WITH</text>
+
+                    <!-- Nexus Holdings -> Riverside Holdings -->
+                    <line x1="200" y1="120" x2="200" y2="210" stroke="#191629" stroke-width="2"/>
+
+                    <!-- Nexus Holdings -> Marcus Vance (REVIEW dashed line) -->
+                    <line x1="220" y1="110" x2="320" y2="200" stroke="#F5B18D" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrow-review)"/>
+                    <rect x="254" y="152" width="42" height="16" rx="8" fill="#F6F0E9"/>
+                    <text x="275" y="163" font-size="8.5" font-weight="700" fill="#F5B18D" text-anchor="middle">REVIEW</text>
+
+                    <!-- Nodes -->
+                    <!-- Node 1: John Watson -->
+                    <g transform="translate(60, 160)" class="graph-node-group">
+                      <circle cx="20" cy="20" r="22" fill="#FFFFFF" stroke="#191629" stroke-width="2"/>
+                      <image href="/static/assets/cat_avatar_watson.svg" x="2" y="2" width="36" height="36" clip-path="url(#circle-clip)"/>
+                      <text x="20" y="54" font-size="11" font-weight="700" fill="#191629" text-anchor="middle">John Watson</text>
+                    </g>
+
+                    <!-- Node 2: Nexus Holdings -->
+                    <g transform="translate(180, 80)" class="graph-node-group">
+                      <circle cx="20" cy="20" r="24" fill="#FFFFFF" stroke="#191629" stroke-width="2.5"/>
+                      <image href="/static/assets/cat_avatar_nexus.svg" x="2" y="2" width="36" height="36" clip-path="url(#circle-clip)"/>
+                      <text x="20" y="56" font-size="11" font-weight="700" fill="#191629" text-anchor="middle">Nexus Holdings</text>
+                    </g>
+
+                    <!-- Node 3: Apex Corp -->
+                    <g transform="translate(320, 80)" class="graph-node-group">
+                      <circle cx="20" cy="20" r="22" fill="#FFFFFF" stroke="#F5B18D" stroke-width="2.5"/>
+                      <image href="/static/assets/cat_avatar_apex.svg" x="2" y="2" width="36" height="36" clip-path="url(#circle-clip)"/>
+                      <text x="20" y="54" font-size="11" font-weight="700" fill="#191629" text-anchor="middle">Apex Corp</text>
+                    </g>
+
+                    <!-- Node 4: Riverside Holdings (Organization building) -->
+                    <g transform="translate(180, 210)" class="graph-node-group">
+                      <circle cx="20" cy="20" r="20" fill="#FFFFFF" stroke="#191629" stroke-width="2"/>
+                      <text x="20" y="26" font-size="16" text-anchor="middle">🏛️</text>
+                      <text x="20" y="52" font-size="10.5" font-weight="700" fill="#191629" text-anchor="middle">Riverside Holdings</text>
+                    </g>
+
+                    <!-- Node 5: Marcus Vance -->
+                    <g transform="translate(320, 190)" class="graph-node-group">
+                      <circle cx="20" cy="20" r="22" fill="#FFFFFF" stroke="#191629" stroke-width="2"/>
+                      <image href="/static/assets/cat_avatar_vance.svg" x="2" y="2" width="36" height="36" clip-path="url(#circle-clip)"/>
+                      <text x="20" y="54" font-size="11" font-weight="700" fill="#191629" text-anchor="middle">Marcus Vance</text>
+                    </g>
+                  </svg>
+
+                  <!-- Mini Graph Legend & Zoom Controls -->
+                  <div class="graph-preview-bottom-bar">
+                    <button class="expand-icon-btn" id="btn-expand-graph" title="Open Full Graph View">⤢</button>
+                    <div class="graph-legend-pills">
+                      <span class="legend-dot dot-person"></span> Person
+                      <span class="legend-dot dot-org"></span> Organization
+                      <span class="legend-dot dot-loc"></span> Location
+                      <span class="legend-line line-solid"></span> Relationship
+                      <span class="legend-line line-dashed"></span> Disputed
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Bottom Row: Evidence Timeline & Current Status -->
+            <div class="dashboard-bottom-grid">
+              <!-- Left: Evidence Timeline -->
+              <div class="cream-panel-card">
+                <div class="card-header-row">
+                  <div class="card-header-left">
+                    <span class="card-header-icon">📑</span>
+                    <div>
+                      <h3 class="panel-card-title text-plum">Evidence Timeline</h3>
+                      <p class="panel-card-sub text-muted">Key evidence and claim updates</p>
+                    </div>
+                  </div>
+                  <button class="link-btn-pill" id="btn-view-evidence-timeline">View all →</button>
+                </div>
+
+                <!-- 4 Event Progression Cards -->
+                <div class="evidence-timeline-grid">
+                  <div class="timeline-event-card">
+                    <div class="timeline-card-header">
+                      <span class="timeline-icon">📄</span>
+                      <span class="timeline-title">Document Ingested</span>
+                    </div>
+                    <div class="timeline-detail">memo_nexus_201.txt</div>
+                    <div class="timeline-timestamp">Oct 11, 10:24</div>
+                  </div>
+
+                  <div class="timeline-event-card">
+                    <div class="timeline-card-header">
+                      <span class="timeline-icon">📑</span>
+                      <span class="timeline-title">Claim Extracted</span>
+                    </div>
+                    <div class="timeline-detail">Nexus Holdings owns Apex Corp</div>
+                    <div class="timeline-timestamp">Oct 11, 11:03</div>
+                  </div>
+
+                  <div class="timeline-event-card event-card-warning">
+                    <div class="timeline-card-header">
+                      <span class="timeline-icon">⚠️</span>
+                      <span class="timeline-title">Contradictory Evidence</span>
+                    </div>
+                    <div class="timeline-detail">Does not own Apex Corp (negated)</div>
+                    <div class="timeline-timestamp">Oct 11, 12:17</div>
+                  </div>
+
+                  <div class="timeline-event-card">
+                    <div class="timeline-card-header">
+                      <span class="timeline-icon">🔄</span>
+                      <span class="timeline-title">Status Updated</span>
+                    </div>
+                    <div class="timeline-detail">Relationship disputed</div>
+                    <div class="timeline-timestamp">Oct 11, 13:42</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Current Status Metrics -->
+              <div class="cream-panel-card">
+                <div class="card-header-row">
+                  <div class="card-header-left">
+                    <span class="card-header-icon">🛡️</span>
+                    <div>
+                      <h3 class="panel-card-title text-plum">Current Status</h3>
+                      <p class="panel-card-sub text-muted">Investigation overview</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="status-summary-pills-row">
+                  <div class="status-metric-card metric-card-match">
+                    <div class="metric-status-header">MATCH</div>
+                    <div class="metric-status-num" id="stat-count-match">0</div>
+                    <div class="metric-status-sub">canonical entities</div>
+                  </div>
+                  <div class="status-metric-card metric-card-review">
+                    <div class="metric-status-header">REVIEW</div>
+                    <div class="metric-status-num" id="stat-count-review">0</div>
+                    <div class="metric-status-sub">items in queue</div>
+                  </div>
+                  <div class="status-metric-card metric-card-nonmatch">
+                    <div class="metric-status-header">NON-MATCH</div>
+                    <div class="metric-status-num" id="stat-count-nonmatch">0</div>
+                    <div class="metric-status-sub">constraints</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT / RAIL COLUMN matching image_1.png -->
+          <div class="dashboard-rail-col">
+            <!-- 1. Sherlock AI Assistant Card -->
+            <div class="cream-panel-card assistant-card">
+              <div class="assistant-hero-graphic">
+                <img src="/static/assets/cat_detective_hero.svg" class="assistant-cat-img" alt="Detective Cat with Deerstalker Hat and Magnifying Glass">
+              </div>
+              <h3 class="assistant-title text-plum">Sherlock AI</h3>
+              <p class="assistant-sub text-muted">Your AI investigation assistant</p>
+
+              <ul class="assistant-features-list">
+                <li><span class="feat-icon">📄</span> Extract entities from documents</li>
+                <li><span class="feat-icon">🕸️</span> Find connections across sources</li>
+                <li><span class="feat-icon">📑</span> Track evidence and contradictions</li>
+                <li><span class="feat-icon">📊</span> Generate explainable reports</li>
+              </ul>
+            </div>
+
+            <!-- 2. Quick Actions Card -->
+            <div class="cream-panel-card quick-actions-panel">
+              <div class="card-header-row">
+                <div class="card-header-left">
+                  <span class="card-header-icon">⚡</span>
+                  <div>
+                    <h3 class="panel-card-title text-plum">Quick Actions</h3>
+                    <p class="panel-card-sub text-muted">Jump to common tasks</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quick-actions-list">
+                <button class="quick-action-row" id="btn-quick-upload-doc">
+                  <div class="qa-left">
+                    <span class="qa-icon">📤</span>
+                    <div>
+                      <div class="qa-title">Upload Documents</div>
+                      <div class="qa-sub">Add new sources</div>
+                    </div>
+                  </div>
+                  <span class="qa-chevron">&gt;</span>
+                </button>
+
+                <button class="quick-action-row" id="btn-quick-view-graph-rail">
+                  <div class="qa-left">
+                    <span class="qa-icon">🕸️</span>
+                    <div>
+                      <div class="qa-title">View Graph</div>
+                      <div class="qa-sub">Explore relationships</div>
+                    </div>
+                  </div>
+                  <span class="qa-chevron">&gt;</span>
+                </button>
+
+                <button class="quick-action-row" id="btn-quick-browse-evidence">
+                  <div class="qa-left">
+                    <span class="qa-icon">📖</span>
+                    <div>
+                      <div class="qa-title">Browse Evidence</div>
+                      <div class="qa-sub">Check claims &amp; sources</div>
+                    </div>
+                  </div>
+                  <span class="qa-chevron">&gt;</span>
+                </button>
+
+                <button class="quick-action-row" id="btn-quick-gen-report">
+                  <div class="qa-left">
+                    <span class="qa-icon">📑</span>
+                    <div>
+                      <div class="qa-title">Generate Report</div>
+                      <div class="qa-sub">Export investigation</div>
+                    </div>
+                  </div>
+                  <span class="qa-chevron">&gt;</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Philosophy / Motto Card (Dark Card) -->
+            <div class="philosophy-quote-card">
+              <div class="quote-avatar">
+                <img src="/static/assets/cat_avatar_nexus.svg" class="quote-cat-img" alt="Detective Cat Icon">
+              </div>
+              <div class="quote-text-wrap">
+                <div class="quote-title">Evidence over assumptions.</div>
+                <div class="quote-sub">That's how we find the truth.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 2: INVESTIGATIONS MANAGEMENT
+           =================================================================== -->
+      <section id="tab-investigations" class="screen-view" aria-labelledby="heading-investigations">
+        <div class="screen-header-row">
+          <div>
+            <h2 id="heading-investigations" class="screen-title">Investigations Management</h2>
+            <p class="screen-subtitle">List, search, create, and switch active investigation sessions.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <button id="btn-modal-create-case" class="btn btn-peach-pill">+ Create Investigation</button>
+            <button id="btn-load-demo-cases" class="btn btn-dark-pill">Load Synthetic Demo Case</button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="filter-controls-card">
+          <div class="search-pill-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="input-search-cases" class="search-pill-input" placeholder="Search investigations by ID or description...">
+          </div>
+          <button id="btn-refresh-cases" class="btn btn-dark-pill btn-sm">Refresh List</button>
+        </div>
+
+        <!-- Investigations Full Table -->
+        <div class="cream-panel-card">
+          <div class="pill-table-container">
+            <table class="pill-table" id="table-investigations">
+              <thead>
+                <tr>
+                  <th>Investigation ID</th>
+                  <th>Description</th>
+                  <th>Backend</th>
+                  <th>Status</th>
+                  <th>Documents</th>
+                  <th>Entities</th>
+                  <th>Claims</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-investigations">
+                <tr><td colspan="9" class="text-center text-muted">Loading investigations...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 3: DOCUMENT INTAKE & INGESTION
+           =================================================================== -->
+      <section id="tab-documents" class="screen-view" aria-labelledby="heading-documents">
+        <div class="screen-header-row">
+          <div>
+            <h2 id="heading-documents" class="screen-title">Document Intake & Ingestion</h2>
+            <p class="screen-subtitle">Submit text, JSON, or PDF evidence. Enforces character offset provenance.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <button id="btn-process-all-docs" class="btn btn-dark-pill">Process All Pending</button>
+          </div>
+        </div>
+
+        <!-- Upload Dropzone Panel (Warm Cream Interior) -->
+        <div class="cream-panel-card">
+          <h3 class="panel-card-title text-plum">Upload Source Document</h3>
+          <form id="form-upload-doc" class="upload-drop-form">
+            <div class="dropzone-area" id="file-dropzone" role="button" tabindex="0" aria-label="Drop document here or click to browse">
+              <input type="file" id="file-input" class="hidden-input" accept=".txt,.json,.pdf">
+              <div class="dropzone-idle" id="dropzone-idle-content">
+                <div class="dropzone-cat-wrap">
+                  <img src="/static/assets/cat_documents.svg" class="dropzone-cat-img" alt="Detective Cat with Evidence Folder">
+                </div>
+                <div class="dropzone-prompt">Drag &amp; drop source document here, or <span class="text-peach-link">browse</span></div>
+                <div class="dropzone-specs">Supported: .txt, .json, .pdf (Max 5 MB) • Provenance SHA-256 hashed</div>
+              </div>
+              <div class="dropzone-active-file" id="dropzone-selected-file" style="display: none;">
+                <span class="file-glyph">📄</span>
+                <div class="file-details">
+                  <span id="selected-file-name" class="file-title"></span>
+                  <span id="selected-file-size" class="file-size-badge"></span>
+                </div>
+                <button type="button" id="btn-clear-file" class="btn-circle-close" aria-label="Remove selected file">×</button>
+              </div>
+            </div>
+
+            <div id="upload-progress-container" class="upload-progress-container" style="display: none;">
+              <div class="progress-bar-track">
+                <div id="upload-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+              </div>
+              <div class="progress-status-row">
+                <span id="upload-progress-label" class="progress-label text-muted">Uploading...</span>
+                <span id="upload-progress-percent" class="progress-percent text-plum">0%</span>
+              </div>
+            </div>
+
+            <div class="upload-options-row">
+              <label class="toggle-pill-label">
+                <input type="checkbox" id="check-auto-process" checked>
+                <span class="toggle-pill-text">Extract NER mentions, claims, and relations automatically upon upload</span>
+              </label>
+              <button type="submit" id="btn-submit-upload" class="btn btn-peach-pill" disabled>Upload & Ingest</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Ingested Documents Registry Table -->
+        <div class="cream-panel-card">
+          <div class="card-header-row">
+            <div>
+              <h3 class="panel-card-title text-plum">Ingested Documents Registry</h3>
+              <p class="panel-card-sub text-muted">Cryptographic hashes and extraction counters.</p>
+            </div>
+          </div>
+          <div class="pill-table-container">
+            <table class="pill-table" id="table-documents">
+              <thead>
+                <tr>
+                  <th>Doc ID</th>
+                  <th>Source Name</th>
+                  <th>SHA-256 Hash</th>
+                  <th>Status</th>
+                  <th>Chars</th>
+                  <th>Mentions</th>
+                  <th>Claims</th>
+                  <th>Evidence</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-documents">
+                <tr><td colspan="9" class="text-center text-muted">No documents uploaded for this investigation.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Split Document Viewer Panel (Raw Text + Extracted Evidence Spans) -->
+        <div id="doc-viewer-panel" class="cream-panel-card" style="display: none;">
+          <div class="card-header-row">
+            <div>
+              <h3 class="panel-card-title text-plum" id="doc-viewer-title">Document Inspection</h3>
+              <span id="doc-viewer-hash" class="code-pill"></span>
+            </div>
+            <button id="btn-close-viewer" class="btn btn-dark-pill btn-sm">Close Viewer</button>
+          </div>
+          <div class="doc-viewer-split-layout">
+            <div class="doc-viewer-left">
+              <div class="pane-sub-header text-plum">Verbatim Source Text</div>
+              <div id="doc-viewer-text" class="verbatim-text-pane"></div>
+            </div>
+            <div class="doc-viewer-right">
+              <div class="pane-sub-header text-plum">Grounded Character Spans</div>
+              <div id="doc-viewer-evidence-list" class="evidence-spans-container">
+                <p class="text-muted">Click an evidence span or document text to highlight.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 4: ENTITY RESOLUTION & REVERSIBILITY
+           =================================================================== -->
+      <section id="tab-resolution" class="screen-view" aria-labelledby="heading-resolution">
+        <div class="screen-header-row">
+          <div>
+            <h2 id="heading-resolution" class="screen-title">Cross-Document Entity Resolution</h2>
+            <p class="screen-subtitle">Compare mentions across documents. Evaluate candidate matches, homonyms, and explicit non-match constraints.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <button id="btn-trigger-cross-doc" class="btn btn-peach-pill">Run Resolution Engine</button>
+          </div>
+        </div>
+
+        <!-- Decision Outcomes Guidance Card -->
+        <div class="cream-panel-card mb-4" style="margin-bottom: 20px;">
+          <h3 class="panel-card-title text-plum">Entity Resolution Decision Framework</h3>
+          <p class="panel-card-sub text-muted" style="margin-bottom: 12px;">Sherlock AI resolves identities across multiple documents into three explicit outcomes:</p>
+          <div class="resolution-outcomes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+            <div style="background: #E2F4EC; border: 1px solid #BFE8D9; border-radius: 12px; padding: 14px;">
+              <span class="status-pill status-pill-success" style="font-weight: 700;">MATCH</span>
+              <p style="font-size: 0.85rem; color: #064E3B; margin-top: 6px;">Sufficient corroborated evidence (co-occurring relationships, shared identifiers, verified attributes) supports that both mentions refer to the same real-world identity.</p>
+            </div>
+            <div style="background: #FFE4D6; border: 1px solid #F5AD87; border-radius: 12px; padding: 14px;">
+              <span class="status-pill status-pill-warning" style="font-weight: 700;">REVIEW</span>
+              <p style="font-size: 0.85rem; color: #7C2D12; margin-top: 6px;">Evidence is ambiguous, partial, or conflicting. Automated merging is halted; human investigator adjudication with documented rationale is required.</p>
+            </div>
+            <div style="background: #E8E5EE; border: 1px solid #D5CFE2; border-radius: 12px; padding: 14px;">
+              <span class="status-pill status-pill-danger" style="font-weight: 700;">NON-MATCH</span>
+              <p style="font-size: 0.85rem; color: #3730A3; margin-top: 6px;">Contradicting attributes (distinct birthdates, tax IDs, incompatible jurisdictions) or explicit analyst constraints rule out identity merging.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resolution Configuration & Metrics Card -->
+        <div class="warm-hero-card">
+          <div class="hero-left">
+            <span class="hero-badge">Candidate Blocking & Similarity Scale</span>
+            <div class="resolution-controls-row">
+              <div class="control-group">
+                <label for="input-res-threshold" class="control-label text-plum">Candidate Similarity Threshold:</label>
+                <div class="slider-box">
+                  <input type="range" id="input-res-threshold" min="0.10" max="0.95" step="0.05" value="0.55">
+                  <span id="label-res-threshold" class="slider-val text-plum">0.55</span>
+                  <button type="button" id="btn-reset-res-threshold" class="btn btn-dark-pill btn-xs" style="margin-left: 10px; font-size: 0.75rem; padding: 4px 10px;" title="Reset default threshold to 0.55">Reset Default</button>
+                </div>
+                <div class="field-hint" style="font-size: 0.78rem; color: var(--text-plum-secondary); margin-top: 6px; line-height: 1.35;">
+                  <strong>Mathematical Meaning:</strong> Minimum token/trigram surface similarity cutoff (0.10 to 0.99) required to form candidate comparison pairs.
+                  <em>Notice: Heuristic similarity scores are NOT calibrated probabilities. High similarity does NOT imply ground-truth match.</em>
+                </div>
+              </div>
+              <label class="toggle-pill-label" style="margin-top: 8px;">
+                <input type="checkbox" id="check-auto-apply">
+                <span class="toggle-pill-text text-plum">Auto-apply confident matches (score &gt;= 0.90)</span>
+              </label>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="resolution-stat-pill">
+              <span class="stat-num" id="stat-res-matches">0</span>
+              <span class="stat-label">MATCHES</span>
+            </div>
+            <div class="resolution-stat-pill">
+              <span class="stat-num" id="stat-res-reviews">0</span>
+              <span class="stat-label">REVIEWS</span>
+            </div>
+            <div class="resolution-stat-pill">
+              <span class="stat-num" id="stat-res-nonmatches">0</span>
+              <span class="stat-label">NON-MATCHES</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Candidate Match Decisions & Proposals Grid -->
+        <div class="cream-panel-card">
+          <div class="card-header-row">
+            <div>
+              <h3 class="panel-card-title text-plum">Pairwise Candidate Decisions</h3>
+              <p class="panel-card-sub text-muted">Auditable side-by-side feature comparison, positive corroboration, and missing information.</p>
+            </div>
+            <button id="btn-open-nonmatch-modal" class="btn btn-dark-pill btn-sm">+ Declare Non-Match Constraint</button>
+          </div>
+
+          <div id="resolution-proposals-container" class="proposals-card-list">
+            <div class="empty-state-card">
+              <div class="empty-state-cat-wrap">
+                <img src="/static/assets/cat_connections.svg" class="empty-state-cat-img" alt="Connected Detective Cats">
+              </div>
+              <div class="empty-title text-plum">No Cross-Document Proposals Evaluated</div>
+              <div class="empty-sub">Click "Run Resolution Engine" above to trigger pairwise candidate generation across ingested documents.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 5: TRACKED ENTITIES (FULL WORKSPACE)
+           =================================================================== -->
+      <section id="tab-entities" class="screen-view" aria-labelledby="heading-entities">
+        <!-- Breadcrumb Navigation -->
+        <nav class="page-breadcrumb-bar" aria-label="Breadcrumb">
+          <button type="button" class="breadcrumb-link" data-tab-link="tab-dashboard">Overview</button>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">Entities</span>
+        </nav>
+
+        <!-- Screen Header -->
+        <div class="screen-header-row">
+          <div>
+            <div class="screen-title-badge-wrap">
+              <h2 id="heading-entities" class="screen-title">Tracked Entities</h2>
+              <span class="count-badge-pill" id="entities-total-badge">0 entities</span>
+            </div>
+            <p class="screen-subtitle">Explore identities discovered across your investigations.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <div class="search-pill-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="filter-entity-name" class="search-pill-input" placeholder="Search entity, alias, ID...">
+              <button type="button" id="btn-clear-entity-search" class="search-clear-btn" style="display: none;" title="Clear search">×</button>
+            </div>
+            <button type="button" class="btn btn-peach-pill" id="btn-entities-new-investigation">
+              + New investigation ›
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Metrics Row (Actual Dynamic Counts) -->
+        <div class="summary-metrics-row">
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Total Entities</span>
+              <span class="metric-icon-bubble">👥</span>
+            </div>
+            <div class="metric-card-val" id="ent-metric-total">0</div>
+            <div class="metric-card-sub text-muted">All active clusters</div>
+          </div>
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Confirmed Matches</span>
+              <span class="status-pill status-pill-success">MATCH</span>
+            </div>
+            <div class="metric-card-val text-success" id="ent-metric-match">0</div>
+            <div class="metric-card-sub text-muted">Verified canonical identities</div>
+          </div>
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Awaiting Review</span>
+              <span class="status-pill status-pill-warning">REVIEW</span>
+            </div>
+            <div class="metric-card-val text-warning" id="ent-metric-review">0</div>
+            <div class="metric-card-sub text-muted">Ambiguous or provisional</div>
+          </div>
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Unresolved Identities</span>
+              <span class="status-pill status-pill-neutral">NON-MATCH</span>
+            </div>
+            <div class="metric-card-val text-muted" id="ent-metric-unresolved">0</div>
+            <div class="metric-card-sub text-muted">Disputed or isolated mentions</div>
+          </div>
+        </div>
+
+        <!-- Search & Filter Controls Toolbar -->
+        <div class="workspace-toolbar-card">
+          <div class="toolbar-left-cluster">
+            <div class="toolbar-filter-item">
+              <label for="filter-entity-type" class="toolbar-field-label">Type:</label>
+              <select id="filter-entity-type" class="filter-pill-select" aria-label="Filter Entity Type">
+                <option value="">All Types</option>
+                <option value="PERSON">Person</option>
+                <option value="ORGANIZATION">Organization</option>
+                <option value="LOCATION">Location</option>
+              </select>
+            </div>
+            <div class="toolbar-filter-item">
+              <label for="filter-entity-status" class="toolbar-field-label">Status:</label>
+              <select id="filter-entity-status" class="filter-pill-select" aria-label="Filter Entity Status">
+                <option value="">All Statuses</option>
+                <option value="MATCH">MATCH</option>
+                <option value="REVIEW">REVIEW</option>
+                <option value="NON-MATCH">NON-MATCH</option>
+              </select>
+            </div>
+            <div class="toolbar-filter-item">
+              <label for="filter-entity-sort" class="toolbar-field-label">Sort:</label>
+              <select id="filter-entity-sort" class="filter-pill-select" aria-label="Sort Entities">
+                <option value="name_asc">Name (A–Z)</option>
+                <option value="name_desc">Name (Z–A)</option>
+                <option value="sources_desc">Most Source Records</option>
+                <option value="sources_asc">Least Source Records</option>
+              </select>
+            </div>
+          </div>
+          <div class="toolbar-right-cluster">
+            <div class="view-toggle-pill-group" role="group" aria-label="View Layout Toggle">
+              <button type="button" class="view-toggle-btn active" id="btn-entities-view-grid" title="Grid View">
+                <span>▦ Grid</span>
+              </button>
+              <button type="button" class="view-toggle-btn" id="btn-entities-view-table" title="Table View">
+                <span>☰ Table</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary Content Area: 3-Card Grid (Desktop) -->
+        <div id="entities-grid-view-container" class="entities-workspace-grid">
+          <!-- Rendered dynamically: 3 cards per row matching reference -->
+        </div>
+
+        <!-- Secondary Content Area: Table View (Tabular Fallback) -->
+        <div id="entities-table-view-container" class="cream-panel-card" style="display: none;">
+          <div class="pill-table-container">
+            <table class="pill-table" id="table-entities">
+              <thead>
+                <tr>
+                  <th>Identity</th>
+                  <th>Canonical Name</th>
+                  <th>Type</th>
+                  <th>Resolution Status</th>
+                  <th>Source Records</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-entities">
+                <tr><td colspan="6" class="text-center text-muted">No entities discovered.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-footer-row" id="entities-pagination-row">
+          <div class="pagination-summary text-muted" id="entities-pagination-summary">
+            Showing 0 of 0 entities
+          </div>
+          <div class="pagination-controls-cluster">
+            <label for="entities-page-size" class="text-muted">Rows</label>
+            <select id="entities-page-size" class="filter-pill-select select-compact" aria-label="Entities per page">
+              <option value="6">6</option><option value="9">9</option><option value="12">12</option><option value="18">18</option>
+            </select>
+            <button type="button" class="pagination-btn" id="btn-entities-prev-page" disabled>‹ Previous</button>
+            <div class="pagination-pages-list" id="entities-pages-list"></div>
+            <button type="button" class="pagination-btn" id="btn-entities-next-page" disabled>Next ›</button>
+          </div>
+        </div>
+
+        <!-- Empty State with Detective Cat Hero -->
+        <div id="entities-empty-state" class="workspace-empty-panel" style="display: none;">
+          <div class="empty-state-cat-wrap">
+            <img src="/static/assets/cat_detective_hero.svg" class="empty-state-cat-img" alt="Detective Cat Searching">
+          </div>
+          <h3 class="empty-title text-plum">No Entities Match Your Filter</h3>
+          <p class="empty-sub">Try broadening your search term or selecting "All Types" and "All Statuses".</p>
+          <button type="button" class="btn btn-peach-pill btn-sm" id="btn-reset-entity-filters">Reset Filters</button>
+        </div>
+
+        <!-- Entity Profile Inspection Drawer / Sheet -->
+        <div id="entity-drawer-backdrop" class="drawer-backdrop" style="display: none;"></div>
+        <aside id="entity-detail-panel" class="drawer-sheet cream-drawer-sheet" style="display: none;" aria-label="Entity Details Sheet">
+          <div class="drawer-header-row">
+            <div class="drawer-header-left">
+              <div id="entity-detail-avatar-wrap" class="entity-avatar-blob-lg"></div>
+              <div>
+                <span class="hero-badge" id="entity-detail-badge">Entity Profile</span>
+                <h3 class="panel-card-title text-plum" id="entity-detail-name">Entity Details</h3>
+                <span id="entity-detail-id" class="code-pill"></span>
+              </div>
+            </div>
+            <div class="drawer-header-actions">
+              <button type="button" id="btn-view-entity-in-graph" class="btn btn-peach-pill btn-sm" title="Focus in Relationship Graph">
+                View in Graph 🕸️
+              </button>
+              <button type="button" id="btn-split-entity-open" class="btn btn-dark-pill btn-sm">Split Cluster</button>
+              <button type="button" id="btn-close-entity-detail" class="btn-circle-close" aria-label="Close Profile">×</button>
+            </div>
+          </div>
+          <div id="entity-detail-body" class="drawer-scroll-body entity-profile-layout"></div>
+        </aside>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 6: RELATIONSHIP GRAPH (FULL WORKSPACE)
+           =================================================================== -->
+      <section id="tab-graph" class="screen-view" aria-labelledby="heading-graph">
+        <!-- Breadcrumb Navigation -->
+        <nav class="page-breadcrumb-bar" aria-label="Breadcrumb">
+          <button type="button" class="breadcrumb-link" data-tab-link="tab-dashboard">Overview</button>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">Relationship Graph</span>
+        </nav>
+
+        <!-- Screen Header -->
+        <div class="screen-header-row">
+          <div>
+            <div class="screen-title-badge-wrap">
+              <h2 id="heading-graph" class="screen-title">Relationship Graph</h2>
+              <span class="count-badge-pill" id="graph-stats-badge">0 nodes • 0 edges</span>
+            </div>
+            <p class="screen-subtitle">Explore evidence-backed connections across entities.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <button type="button" id="btn-fullscreen-graph" class="btn btn-dark-pill btn-sm" title="Toggle Fullscreen">
+              ⤢ Fullscreen
+            </button>
+            <button type="button" id="btn-toggle-graph-table" class="btn btn-dark-pill btn-sm">
+              Tabular View
+            </button>
+            <button type="button" id="btn-refresh-graph" class="btn btn-peach-pill btn-sm">
+              Reload Graph ↻
+            </button>
+          </div>
+        </div>
+
+        <!-- Graph Workspace Panel: Large Ivory Surface (#F7F1E9) -->
+        <div class="graph-full-workspace-panel" id="graph-workspace-panel">
+          <!-- Top Floating Controls Toolbar inside Ivory Panel -->
+          <div class="graph-floating-controls-bar">
+            <div class="graph-control-group">
+              <label for="graph-root-select" class="graph-ctl-label">Focus Entity:</label>
+              <select id="graph-root-select" class="filter-pill-select select-compact" aria-label="Select Focus Root Node">
+                <option value="">Entire Graph (All Entities)</option>
+              </select>
+            </div>
+            <div class="graph-control-group">
+              <label for="graph-depth-input" class="graph-ctl-label">Depth:</label>
+              <select id="graph-depth-input" class="filter-pill-select select-compact" aria-label="Graph Traversal Depth">
+                <option value="1">1 Hop</option>
+                <option value="2" selected>2 Hops</option>
+                <option value="3">3 Hops</option>
+                <option value="4">4 Hops</option>
+              </select>
+            </div>
+            <div class="graph-control-group">
+              <label for="graph-nodes-input" class="graph-ctl-label">Max Nodes:</label>
+              <input type="number" id="graph-nodes-input" class="num-pill-input input-compact" value="50" min="5" max="150">
+            </div>
+            <div class="graph-control-group">
+              <label for="graph-filter-edge-type" class="graph-ctl-label">Relationship:</label>
+              <select id="graph-filter-edge-type" class="filter-pill-select select-compact" aria-label="Filter Relationship Type">
+                <option value="">All Relationships</option>
+                <option value="WORKS_FOR">WORKS_FOR</option>
+                <option value="OWNS">OWNS</option>
+                <option value="ASSOCIATED_WITH">ASSOCIATED_WITH</option>
+                <option value="COMMUNICATED_WITH">COMMUNICATED_WITH</option>
+              </select>
+            </div>
+            <div class="graph-control-group">
+              <label for="graph-filter-status" class="graph-ctl-label">Status:</label>
+              <select id="graph-filter-status" class="filter-pill-select select-compact" aria-label="Filter Status">
+                <option value="">All Statuses</option>
+                <option value="ASSERTED">Asserted</option>
+                <option value="INFERRED">Inferred</option>
+                <option value="DISPUTED">Disputed</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- SVG Visualizer Canvas Area -->
+          <div id="graph-container" class="svg-graph-full-container">
+            <!-- Floating Navigation Controls: Zoom In, Zoom Out, Fit, Reset -->
+            <div class="graph-nav-floating-cluster">
+              <button type="button" class="graph-nav-circle-btn" id="btn-graph-zoom-in" title="Zoom In">+</button>
+              <button type="button" class="graph-nav-circle-btn" id="btn-graph-zoom-out" title="Zoom Out">−</button>
+              <button type="button" class="graph-nav-circle-btn" id="btn-graph-zoom-fit" title="Fit to View">⊡</button>
+              <button type="button" class="graph-nav-circle-btn" id="btn-graph-zoom-reset" title="Reset Layout">⟲</button>
+            </div>
+
+            <!-- Floating Legend (Matching Reference Image!) -->
+            <div class="graph-reference-legend">
+              <div class="legend-row-item">
+                <span class="legend-dot dot-person"></span>
+                <span class="legend-text">Person</span>
+              </div>
+              <div class="legend-row-item">
+                <span class="legend-dot dot-org"></span>
+                <span class="legend-text">Organization</span>
+              </div>
+              <div class="legend-row-item">
+                <span class="legend-dot dot-loc"></span>
+                <span class="legend-text">Location</span>
+              </div>
+              <div class="legend-divider"></div>
+              <div class="legend-row-item">
+                <span class="legend-line line-solid"></span>
+                <span class="legend-text">Relationship</span>
+              </div>
+              <div class="legend-row-item">
+                <span class="legend-line line-dashed"></span>
+                <span class="legend-text">Disputed / Review</span>
+              </div>
+            </div>
+
+            <!-- SVG Graph -->
+            <svg id="graph-svg" width="100%" height="680" role="img" aria-label="Investigation relationship network graph"></svg>
+
+            <!-- Graph Empty State -->
+            <div id="graph-empty-state" class="graph-empty-notice" style="display: none;">
+              <div class="empty-state-cat-wrap">
+                <img src="/static/assets/cat_detective_hero.svg" class="empty-state-cat-img" alt="Detective Cat Searching Graph">
+              </div>
+              <h3 class="empty-title text-plum">No Relationships Mapped Yet</h3>
+              <p class="empty-sub">Ingest documents to extract connections and automatically populate the relationship network.</p>
+              <button type="button" class="btn btn-peach-pill btn-sm" id="btn-graph-go-upload">Upload Documents ›</button>
+            </div>
+
+            <!-- Slide-in Inspector Sheet for Selected Node or Edge -->
+            <aside id="graph-inspector" class="cream-inspector-sheet graph-floating-inspector" style="display: none;" aria-label="Graph Selection Inspector">
+              <div class="inspector-header-row">
+                <h4 id="inspector-title" class="inspector-heading text-plum">Selection Details</h4>
+                <button type="button" id="btn-close-inspector" class="btn-circle-close" aria-label="Close inspector">×</button>
+              </div>
+              <div id="inspector-content" class="inspector-scroll-body"></div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- Tabular Fallback for Screen Readers & Keyboard Users -->
+        <div id="graph-table-panel" class="cream-panel-card" style="display: none; margin-top: 20px;">
+          <h3 class="panel-card-title text-plum">Relationship Edges (Tabular View)</h3>
+          <div class="pill-table-container">
+            <table class="pill-table" id="table-graph-edges">
+              <thead>
+                <tr>
+                  <th>Edge ID</th>
+                  <th>Source Entity</th>
+                  <th>Relationship</th>
+                  <th>Target Entity</th>
+                  <th>Epistemic Tier</th>
+                  <th>Review Status</th>
+                  <th>Claims</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-graph-edges">
+                <tr><td colspan="8" class="text-center text-muted">No edges in current graph scope.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 7: EVIDENCE & CLAIMS (FULL WORKSPACE)
+           =================================================================== -->
+      <section id="tab-claims" class="screen-view" aria-labelledby="heading-claims">
+        <!-- Breadcrumb Navigation -->
+        <nav class="page-breadcrumb-bar" aria-label="Breadcrumb">
+          <button type="button" class="breadcrumb-link" data-tab-link="tab-dashboard">Overview</button>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">Evidence</span>
+        </nav>
+
+        <!-- Screen Header -->
+        <div class="screen-header-row">
+          <div>
+            <div class="screen-title-badge-wrap">
+              <h2 id="heading-claims" class="screen-title">Evidence & Claims</h2>
+              <span class="count-badge-pill" id="evidence-total-badge">0 items</span>
+            </div>
+            <p class="screen-subtitle">Trace every conclusion back to its source.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <div class="search-pill-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="filter-evidence-query" class="search-pill-input" placeholder="Search evidence text, offsets, claims...">
+              <button type="button" id="btn-clear-evidence-search" class="search-clear-btn" style="display: none;" title="Clear search">×</button>
+            </div>
+            <button type="button" class="btn btn-peach-pill" id="btn-evidence-upload-doc">
+              + Upload Documents ›
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Metrics Row (Actual Dynamic Counts) -->
+        <div class="summary-metrics-row">
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Documents Ingested</span>
+              <span class="metric-icon-bubble">📄</span>
+            </div>
+            <div class="metric-card-val" id="ev-metric-docs">0</div>
+            <div class="metric-card-sub text-muted">Source texts & files</div>
+          </div>
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Extracted Evidence Spans</span>
+              <span class="metric-icon-bubble">🔍</span>
+            </div>
+            <div class="metric-card-val text-success" id="ev-metric-spans">0</div>
+            <div class="metric-card-sub text-muted">Verbatim grounded text</div>
+          </div>
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Claims Under Review</span>
+              <span class="status-pill status-pill-warning">REVIEW</span>
+            </div>
+            <div class="metric-card-val text-warning" id="ev-metric-claims">0</div>
+            <div class="metric-card-sub text-muted">Awaiting investigator verification</div>
+          </div>
+          <div class="metric-card-ivory">
+            <div class="metric-card-top">
+              <span class="metric-card-label">Contradictions / Disputed</span>
+              <span class="status-pill status-pill-danger">DISPUTED</span>
+            </div>
+            <div class="metric-card-val text-danger" id="ev-metric-disputes">0</div>
+            <div class="metric-card-sub text-muted">Conflicting assertions</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Expanded Evidence Event Timeline (Matching Dashboard Reference Bottom Bar!) -->
+        <div class="cream-panel-card evidence-timeline-full-panel">
+          <div class="card-header-row">
+            <div>
+              <div class="panel-card-title-row">
+                <span class="panel-card-icon">⏱️</span>
+                <h3 class="panel-card-title text-plum">Evidence Timeline</h3>
+              </div>
+              <span class="panel-card-sub text-muted">Chronological sequence of document intake, extractions, and status updates</span>
+            </div>
+            <div class="timeline-legend-pills">
+              <span class="tag-pill">📄 Ingested</span>
+              <span class="tag-pill">📑 Claim</span>
+              <span class="tag-pill">⚠️ Contradiction</span>
+              <span class="tag-pill">🔄 Updated</span>
+            </div>
+          </div>
+          <div class="evidence-timeline-scroll-track" id="evidence-timeline-track">
+            <!-- Populated dynamically with rich event cards matching reference -->
+          </div>
+        </div>
+
+        <!-- Section 2: Evidence & Claims Explorer -->
+        <div class="workspace-toolbar-card" style="margin-top: 24px;">
+          <div class="toolbar-left-cluster">
+            <div class="toolbar-filter-item">
+              <label for="filter-evidence-polarity" class="toolbar-field-label">Polarity:</label>
+              <select id="filter-evidence-polarity" class="filter-pill-select" aria-label="Filter Polarity">
+                <option value="">All Polarities</option>
+                <option value="SUPPORTING">Supporting</option>
+                <option value="CONTRADICTING">Contradicting / Negated</option>
+              </select>
+            </div>
+            <div class="toolbar-filter-item">
+              <label for="filter-evidence-status" class="toolbar-field-label">Review Status:</label>
+              <select id="filter-evidence-status" class="filter-pill-select" aria-label="Filter Review Status">
+                <option value="">All Statuses</option>
+                <option value="UNREVIEWED">Unreviewed</option>
+                <option value="VERIFIED">Verified</option>
+                <option value="DISPUTED">Disputed</option>
+                <option value="RETRACTED">Retracted</option>
+              </select>
+            </div>
+            <div class="toolbar-filter-item">
+              <label for="filter-evidence-doc" class="toolbar-field-label">Document:</label>
+              <select id="filter-evidence-doc" class="filter-pill-select" aria-label="Filter Document">
+                <option value="">All Documents</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-dark-pill btn-sm" id="btn-reset-evidence-filters">Reset</button>
+          </div>
+          <div class="toolbar-right-cluster">
+            <div class="view-toggle-pill-group" role="group" aria-label="View Layout Toggle">
+              <button type="button" class="view-toggle-btn active" id="btn-evidence-view-cards" title="Evidence Cards">
+                <span>📑 Evidence Cards</span>
+              </button>
+              <button type="button" class="view-toggle-btn" id="btn-evidence-view-claims-table" title="Claims Table">
+                <span>⚖️ Claims Table</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evidence Cards Container -->
+        <div id="evidence-cards-container" class="evidence-cards-grid">
+          <!-- Populated dynamically: rich ivory cards with verbatim text, offsets, and entity avatars -->
+        </div>
+
+        <!-- Claims Tabular View Container -->
+        <div id="claims-table-view-container" class="cream-panel-card" style="display: none;">
+          <div class="card-header-row">
+            <h3 class="panel-card-title text-plum">Extracted Claims Registry</h3>
+            <span class="panel-card-sub text-muted">Underlying assertions linking entities and evidence</span>
+          </div>
+          <div class="pill-table-container">
+            <table class="pill-table" id="table-claims">
+              <thead>
+                <tr>
+                  <th>Claim ID</th>
+                  <th>Subject</th>
+                  <th>Predicate</th>
+                  <th>Object</th>
+                  <th>Status</th>
+                  <th>Qualifiers</th>
+                  <th>Supporting Ev</th>
+                  <th>Contradicting Ev</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-claims">
+                <tr><td colspan="9" class="text-center text-muted">No claims recorded.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Evidence Grounded Table (Tabular fallback for evidence) -->
+        <div id="evidence-table-view-container" class="cream-panel-card" style="display: none; margin-top: 20px;">
+          <div class="card-header-row">
+            <h3 class="panel-card-title text-plum">Evidence Spans & Provenance (Tabular View)</h3>
+            <span class="panel-card-sub text-muted">Verbatim text excerpts with exact character bounds</span>
+          </div>
+          <div class="pill-table-container">
+            <table class="pill-table" id="table-evidence">
+              <thead>
+                <tr>
+                  <th>Evidence ID</th>
+                  <th>Document Reference</th>
+                  <th>Type</th>
+                  <th>Polarity</th>
+                  <th>Text Span</th>
+                  <th>Offsets</th>
+                  <th>Extraction Method</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-evidence">
+                <tr><td colspan="8" class="text-center text-muted">No evidence items recorded.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Evidence Pagination Controls -->
+        <div class="pagination-footer-row" id="evidence-pagination-row">
+          <div class="pagination-summary text-muted" id="evidence-pagination-summary">
+            Showing 0 of 0 evidence items
+          </div>
+          <div class="pagination-controls-cluster">
+            <label for="evidence-page-size" class="text-muted">Rows</label>
+            <select id="evidence-page-size" class="filter-pill-select select-compact" aria-label="Evidence items per page">
+              <option value="6">6</option><option value="8">8</option><option value="12">12</option><option value="18">18</option>
+            </select>
+            <button type="button" class="pagination-btn" id="btn-evidence-prev-page" disabled>‹ Previous</button>
+            <div class="pagination-pages-list" id="evidence-pages-list"></div>
+            <button type="button" class="pagination-btn" id="btn-evidence-next-page" disabled>Next ›</button>
+          </div>
+        </div>
+
+        <!-- Evidence Empty State -->
+        <div id="evidence-empty-state" class="workspace-empty-panel" style="display: none;">
+          <div class="empty-state-cat-wrap">
+            <img src="/static/assets/cat_detective_hero.svg" class="empty-state-cat-img" alt="Detective Cat Searching">
+          </div>
+          <h3 class="empty-title text-plum">No Evidence Grounded Yet</h3>
+          <p class="empty-sub">Upload investigative case files, memos, or interview transcripts to ground claims.</p>
+          <button type="button" class="btn btn-peach-pill btn-sm" id="btn-evidence-empty-upload">Upload Documents ›</button>
+        </div>
+
+        <!-- Evidence Detail & Review Drawer Sheet -->
+        <div id="evidence-drawer-backdrop" class="drawer-backdrop" style="display: none;"></div>
+        <aside id="evidence-detail-panel" class="drawer-sheet cream-drawer-sheet" style="display: none;" aria-label="Evidence Details Sheet">
+          <div class="drawer-header-row">
+            <div>
+              <span class="hero-badge" id="evidence-drawer-type-badge">Evidence Provenance</span>
+              <h3 class="panel-card-title text-plum" id="evidence-drawer-title">Evidence Inspection</h3>
+              <span id="evidence-drawer-id" class="code-pill"></span>
+            </div>
+            <button type="button" id="btn-close-evidence-detail" class="btn-circle-close" aria-label="Close Evidence Panel">×</button>
+          </div>
+          <div id="evidence-drawer-body" class="drawer-scroll-body"></div>
+        </aside>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 8: INVESTIGATION REPORT
+           =================================================================== -->
+      <section id="tab-report" class="screen-view" aria-labelledby="heading-report">
+        <div class="screen-header-row">
+          <div>
+            <h2 id="heading-report" class="screen-title">Structured Investigation Report</h2>
+            <p class="screen-subtitle">Deterministic audit report compiling documents, entities, resolved claims, disputes, and limitations.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <button id="btn-export-markdown" class="btn btn-dark-pill btn-sm">Export Markdown</button>
+            <button id="btn-export-json" class="btn btn-dark-pill btn-sm">Export JSON</button>
+            <button id="btn-export-html" class="btn btn-dark-pill btn-sm">Download HTML</button>
+            <button id="btn-print-report" class="btn btn-peach-pill btn-sm">Print / Save PDF</button>
+            <button id="btn-refresh-report" class="btn btn-dark-pill btn-sm">Regenerate Report ↻</button>
+          </div>
+        </div>
+
+        <div class="cream-panel-card">
+          <div id="report-view-container" class="report-content-view">
+            <div class="empty-state-card">
+              <span class="empty-icon">📑</span>
+              <div class="empty-title text-plum">Report Ready to Compile</div>
+              <div class="empty-sub">Click "Regenerate Report" or select an investigation to assemble an audit-grade dossier.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 9: SETTINGS & SYSTEM STATUS
+           =================================================================== -->
+      <section id="tab-settings" class="screen-view" aria-labelledby="heading-settings">
+        <div class="screen-header-row">
+          <div>
+            <h2 id="heading-settings" class="screen-title">System Status & Data Management</h2>
+            <p class="screen-subtitle">Verify runtime health, manage SQLite investigation storage, and safely clear data.</p>
+          </div>
+          <div class="screen-actions-cluster">
+            <button id="btn-refresh-health" class="btn btn-dark-pill btn-sm">Probe Health & Ready</button>
+          </div>
+        </div>
+
+        <!-- Data Management & Safe Clear Operations Card -->
+        <div class="cream-panel-card mb-4" style="margin-bottom: 24px;">
+          <div class="card-header-row">
+            <div>
+              <h3 class="panel-card-title text-plum">Data Management & Safe Storage Controls</h3>
+              <p class="panel-card-sub text-muted">Review database inventory, safely remove test cases, or perform system resets.</p>
+            </div>
+            <button id="btn-refresh-stats" class="btn btn-dark-pill btn-sm">Refresh Counts</button>
+          </div>
+
+          <!-- Live Database Counts Banner -->
+          <div class="system-stats-banner" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 16px 0 24px 0;">
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Investigations</div>
+              <div id="stats-count-inv" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Documents</div>
+              <div id="stats-count-docs" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Entities</div>
+              <div id="stats-count-entities" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Claims</div>
+              <div id="stats-count-claims" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Evidence</div>
+              <div id="stats-count-evidence" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Relationships</div>
+              <div id="stats-count-rels" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+            <div class="stat-pill-box" style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:12px; padding:12px; text-align:center;">
+              <div style="font-size:0.75rem; color:#666477; font-weight:700; text-transform:uppercase;">Reports</div>
+              <div id="stats-count-reports" style="font-size:1.5rem; font-weight:800; color:#191A2D; margin-top:2px;">0</div>
+            </div>
+          </div>
+
+          <!-- Actions Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+            <!-- Action A: Clear Active Investigation -->
+            <div style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:16px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <h4 style="color:#191A2D; font-size:1rem; margin-bottom:6px;">A. Clear Current Investigation</h4>
+                <p style="color:#666477; font-size:0.85rem; line-height:1.4; margin-bottom:12px;">
+                  Permanently deletes the active investigation (<code id="clear-inv-active-id-display">none</code>) and all its associated documents, entities, claims, evidence, and reports. Unrelated investigations remain completely intact.
+                </p>
+              </div>
+              <button id="btn-open-clear-inv-modal" class="btn btn-dark-pill btn-sm" style="align-self:flex-start;">
+                Clear Current Investigation…
+              </button>
+            </div>
+
+            <!-- Action B: Clear All Investigation Data -->
+            <div style="background:#FFFDF9; border:2px solid #F87171; border-radius:16px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                  <span style="font-size:1.1rem;">⚠️</span>
+                  <h4 style="color:#DC2626; font-size:1rem; margin:0;">B. Clear All Investigation Data</h4>
+                </div>
+                <p style="color:#666477; font-size:0.85rem; line-height:1.4; margin-bottom:12px;">
+                  High-impact destructive action. Transactionally removes ALL investigations, ingested documents, extracted entities, claims, relationships, and reports from the database. Requires typing an exact confirmation phrase.
+                </p>
+              </div>
+              <button id="btn-open-clear-all-modal" class="btn btn-danger-pill btn-sm" style="background:#DC2626; color:#FFF; border:none; padding:8px 16px; border-radius:20px; font-weight:700; cursor:pointer; align-self:flex-start;">
+                Clear All Data…
+              </button>
+            </div>
+
+            <!-- Action C: Reset Preferences -->
+            <div style="background:#FFFDF9; border:1px solid #E4DCD2; border-radius:16px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <h4 style="color:#191A2D; font-size:1rem; margin-bottom:6px;">C. Reset Preferences</h4>
+                <p style="color:#666477; font-size:0.85rem; line-height:1.4; margin-bottom:12px;">
+                  Restores candidate similarity threshold (0.55), graph zoom/layout settings, table pagination sizes, and view mode preferences to factory defaults without deleting any investigation records.
+                </p>
+              </div>
+              <button id="btn-reset-preferences" class="btn btn-dark-pill btn-sm" style="align-self:flex-start;">
+                Reset Preferences
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Health & Configuration Cards Grid -->
+        <div class="settings-grid">
+          <div class="cream-panel-card">
+            <h3 class="panel-card-title text-plum">API Access</h3>
+            <p class="panel-card-sub text-muted">Vercel access is verified before the app loads. A bearer token is only needed when connecting to a separately token-protected API.</p>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <input id="api-token-input" class="input-pill" type="password" autocomplete="off" placeholder="Optional self-hosted API token" aria-label="API access token">
+              <button id="btn-save-api-token" class="btn btn-dark-pill btn-sm" type="button">Save API Token</button>
+              <button id="btn-clear-api-token" class="btn btn-secondary-subtle btn-sm" type="button">Clear</button>
+            </div>
+            <div id="api-token-status" class="text-muted" role="status" aria-live="polite"></div>
+          </div>
+
+          <div class="cream-panel-card">
+            <h3 class="panel-card-title text-plum">Service Runtime Health</h3>
+            <div class="key-value-list">
+              <div class="kv-item">
+                <span class="kv-key">API Status:</span>
+                <span class="status-pill status-pill-success" id="cfg-status-val">OK</span>
+              </div>
+              <div class="kv-item">
+                <span class="kv-key">Version:</span>
+                <span class="kv-val text-plum" id="cfg-version-val">v1.0.0</span>
+              </div>
+              <div class="kv-item">
+                <span class="kv-key">Extraction Backend:</span>
+                <span class="code-pill" id="cfg-backend-val">rule</span>
+              </div>
+              <div class="kv-item">
+                <span class="kv-key">Persistence Engine:</span>
+                <span class="code-pill" id="cfg-persistence-val">sqlite</span>
+              </div>
+              <div class="kv-item">
+                <span class="kv-key">Database Path:</span>
+                <span class="code-pill" id="cfg-dbpath-val">data/sherlock_investigations.db</span>
+              </div>
+              <div class="kv-item">
+                <span class="kv-key">Last Probed:</span>
+                <span class="kv-val text-muted" id="cfg-timestamp-val">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cream-panel-card">
+            <h3 class="panel-card-title text-plum">Architectural Safety & Ethics</h3>
+            <div class="safety-rules-list">
+              <div class="safety-rule-item">
+                <span class="rule-icon">🛡️</span>
+                <div>
+                  <strong>Extraction is NOT Verification:</strong>
+                  Automated pipelines extract assertions from text into the UNREVIEWED state. They do not substantiate factual accuracy.
+                </div>
+              </div>
+              <div class="safety-rule-item">
+                <span class="rule-icon">🔒</span>
+                <div>
+                  <strong>100% Offline & Fictional:</strong>
+                  No external telemetry or cloud LLM calls. All evaluation cases employ synthetic identities and corporate fixtures.
+                </div>
+              </div>
+              <div class="safety-rule-item">
+                <span class="rule-icon">⚖️</span>
+                <div>
+                  <strong>Conservative Matching Guard:</strong>
+                  High string similarity alone does not auto-merge entities. Ambiguous homonyms route conservatively to human review.
+                </div>
+              </div>
+              <div class="safety-rule-item">
+                <span class="rule-icon">🚫</span>
+                <div>
+                  <strong>Neo4j Adapter Placeholder:</strong>
+                  The Neo4j adapter is an offline typed interface. Operations raise NotImplementedError to prevent fabricated production claims.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Mobile-First Floating Bottom Pill Navigation Bar -->
+  <nav class="mobile-bottom-pill-bar" role="navigation" aria-label="Mobile Navigation">
+    <button class="mobile-nav-btn active" data-tab="tab-dashboard" aria-label="Dashboard">
+      <span class="mobile-nav-icon">📊</span>
+      <span class="mobile-nav-label">Dash</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-investigations" aria-label="Cases">
+      <span class="mobile-nav-icon">📁</span>
+      <span class="mobile-nav-label">Cases</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-documents" aria-label="Documents">
+      <span class="mobile-nav-icon">📄</span>
+      <span class="mobile-nav-label">Docs</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-resolution" aria-label="Resolution">
+      <span class="mobile-nav-icon">🔀</span>
+      <span class="mobile-nav-label">Resolve</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-entities" aria-label="Entities">
+      <span class="mobile-nav-icon">👥</span>
+      <span class="mobile-nav-label">Profile</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-graph" aria-label="Graph">
+      <span class="mobile-nav-icon">🕸️</span>
+      <span class="mobile-nav-label">Graph</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-claims" aria-label="Claims">
+      <span class="mobile-nav-icon">⚖️</span>
+      <span class="mobile-nav-label">Claims</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-report" aria-label="Report">
+      <span class="mobile-nav-icon">📑</span>
+      <span class="mobile-nav-label">Report</span>
+    </button>
+    <button class="mobile-nav-btn" data-tab="tab-settings" aria-label="Settings">
+      <span class="mobile-nav-icon">⚙️</span>
+      <span class="mobile-nav-label">System</span>
+    </button>
+  </nav>
+
+  <!-- ===================================================================
+       MODALS & DIALOGS
+       =================================================================== -->
+
+  <!-- MODAL 1: CREATE NEW INVESTIGATION -->
+  <div id="modal-new-inv" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-new-inv">
+    <div class="modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-card-title text-plum" id="modal-title-new-inv">Create Investigation Session</h3>
+        <button id="btn-close-modal-new-inv" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-create-inv" class="modal-card-body">
+        <div class="form-field-group">
+          <label for="input-inv-id" class="field-label text-plum">Investigation ID <span class="required-star">*</span></label>
+          <input type="text" id="input-inv-id" class="input-pill" placeholder="e.g. inv_blackthorn_2026" required pattern="^[a-zA-Z0-9_\-]+$">
+          <span class="field-hint">Alphanumerics, dashes, and underscores only.</span>
+        </div>
+        <div class="form-field-group">
+          <label for="input-inv-desc" class="field-label text-plum">Description / Scope</label>
+          <textarea id="input-inv-desc" class="input-rounded-textarea" rows="3" placeholder="Fictional synthetic OSINT investigation objectives..."></textarea>
+        </div>
+        <div class="form-field-group">
+          <label for="select-inv-backend" class="field-label text-plum">Extraction Backend</label>
+          <select id="select-inv-backend" class="filter-pill-select w-full">
+            <option value="rule" selected>Deterministic Rules (Offline, fast, 0 MB download)</option>
+            <option value="mock_ml">Mock ML (Simulated Transformer)</option>
+            <option value="hybrid">Hybrid (Rules + Transformer Candidates)</option>
+          </select>
+        </div>
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-new-inv" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" class="btn btn-peach-pill">Create Case</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: HUMAN REVIEW OF CLAIM -->
+  <div id="modal-review-action" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-review">
+    <div class="modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-card-title text-plum" id="modal-title-review">Human Adjudication Decision</h3>
+        <button id="btn-close-modal-review" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-review-decision" class="modal-card-body">
+        <input type="hidden" id="review-claim-id">
+        <div class="claim-info-bubble" id="review-modal-claim-info"></div>
+
+        <div class="form-field-group">
+          <label for="select-review-status" class="field-label text-plum">Adjudicated Status <span class="required-star">*</span></label>
+          <select id="select-review-status" class="filter-pill-select w-full" required>
+            <option value="VERIFIED">VERIFIED — Corroborated by independent evidence</option>
+            <option value="DISPUTED">DISPUTED — Active factual contradiction</option>
+            <option value="RETRACTED">RETRACTED — Assertion rescinded</option>
+            <option value="REJECTED">REJECTED — Extraction error or invalid candidate</option>
+          </select>
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-reviewer-id" class="field-label text-plum">Reviewer Identifier <span class="required-star">*</span></label>
+          <input type="text" id="input-reviewer-id" class="input-pill" placeholder="e.g. analyst_lestrade" required minlength="2">
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-review-rationale" class="field-label text-plum">Auditable Rationale <span class="required-star">*</span></label>
+          <textarea id="input-review-rationale" class="input-rounded-textarea" rows="3" placeholder="Cite registry filings or source passages justifying decision..." required minlength="5"></textarea>
+          <span class="field-hint">Minimum 5 characters. Stored permanently in immutable audit trail.</span>
+        </div>
+
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-review" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" class="btn btn-peach-pill">Commit Decision</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: EXPLICIT NON-MATCH CONSTRAINT -->
+  <div id="modal-non-match" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-nonmatch">
+    <div class="modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-card-title text-plum" id="modal-title-nonmatch">Declare Non-Match Constraint</h3>
+        <button id="btn-close-modal-nonmatch" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-non-match" class="modal-card-body">
+        <div class="form-field-group">
+          <label for="input-nonmatch-a" class="field-label text-plum">Entity / Mention A ID <span class="required-star">*</span></label>
+          <input type="text" id="input-nonmatch-a" class="input-pill" placeholder="e.g. men_doc_alpha_01" required>
+        </div>
+        <div class="form-field-group">
+          <label for="input-nonmatch-b" class="field-label text-plum">Entity / Mention B ID <span class="required-star">*</span></label>
+          <input type="text" id="input-nonmatch-b" class="input-pill" placeholder="e.g. men_doc_beta_02" required>
+        </div>
+        <div class="form-field-group">
+          <label for="input-nonmatch-reviewer" class="field-label text-plum">Reviewer Identifier <span class="required-star">*</span></label>
+          <input type="text" id="input-nonmatch-reviewer" class="input-pill" placeholder="e.g. lead_investigator" required minlength="2">
+        </div>
+        <div class="form-field-group">
+          <label for="input-nonmatch-rationale" class="field-label text-plum">Auditable Constraint Rationale <span class="required-star">*</span></label>
+          <textarea id="input-nonmatch-rationale" class="input-rounded-textarea" rows="3" placeholder="Explain fatal mismatch (e.g. conflicting corporate registry numbers or birthdates)..." required minlength="5"></textarea>
+        </div>
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-nonmatch" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" class="btn btn-peach-pill">Enforce Constraint</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: ENTITY SPLIT / CLUSTER SEPARATION -->
+  <div id="modal-split-entity" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-split">
+    <div class="modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-card-title text-plum" id="modal-title-split">Split Entity Cluster</h3>
+        <button id="btn-close-modal-split" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-split-entity" class="modal-card-body">
+        <input type="hidden" id="split-target-entity-id">
+        <div class="claim-info-bubble" id="split-modal-info"></div>
+
+        <div class="form-field-group">
+          <label class="field-label text-plum">Select Member Records to Split Off <span class="required-star">*</span></label>
+          <div id="split-records-checklist" class="checkbox-pill-list"></div>
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-split-reviewer" class="field-label text-plum">Reviewer Identifier <span class="required-star">*</span></label>
+          <input type="text" id="input-split-reviewer" class="input-pill" placeholder="e.g. chief_auditor" required minlength="2">
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-split-rationale" class="field-label text-plum">Auditable Rationale <span class="required-star">*</span></label>
+          <textarea id="input-split-rationale" class="input-rounded-textarea" rows="3" placeholder="Reason for separating entities (reversibility audit trail)..." required minlength="5"></textarea>
+        </div>
+
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-split" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" class="btn btn-peach-pill">Split & Enforce</button>
+        </div>
+      </form>
+    </div>
+  <!-- MODAL 5: APPROVE ENTITY MERGE -->
+  <div id="modal-approve-merge" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-merge">
+    <div class="modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-card-title text-plum" id="modal-title-merge">Approve Cross-Document Entity Merge</h3>
+        <button id="btn-close-modal-merge" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-approve-merge" class="modal-card-body">
+        <input type="hidden" id="input-merge-proposal-id">
+        <div class="claim-info-bubble" id="merge-modal-pair-info" style="margin-bottom: 16px;"></div>
+
+        <div class="form-field-group">
+          <label for="input-merge-reviewer" class="field-label text-plum">Reviewer Identifier <span class="required-star">*</span></label>
+          <input type="text" id="input-merge-reviewer" class="input-pill" value="lead_analyst" required minlength="2">
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-merge-rationale" class="field-label text-plum">Auditable Merge Rationale <span class="required-star">*</span></label>
+          <textarea id="input-merge-rationale" class="input-rounded-textarea" rows="3" placeholder="Cite source evidence, shared affiliations, or registry filings justifying the merge..." required minlength="5">Corroborated by shared corporate affiliation and contextual records.</textarea>
+          <span class="field-hint">Recorded permanently in the reversibility audit log.</span>
+        </div>
+
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-merge" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" class="btn btn-peach-pill">Approve & Merge</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 6: CLEAR SINGLE INVESTIGATION -->
+  <div id="modal-clear-inv" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-clear-inv">
+    <div class="modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-card-title text-plum" id="modal-title-clear-inv">Clear Investigation</h3>
+        <button id="btn-close-modal-clear-inv" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-clear-inv" class="modal-card-body">
+        <div class="claim-info-bubble" style="background: #FFF7ED; border-color: #F5AD87; color: #7C2D12; margin-bottom: 16px;">
+          <strong>Warning:</strong> You are about to permanently delete investigation <code id="clear-inv-target-id">none</code>.
+          All associated documents, extracted entities, claims, grounded evidence, derived relationships, and reports will be removed from the database.
+          <em>Unrelated investigations will remain untouched.</em>
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-clear-inv-name" class="field-label text-plum">Type the investigation ID to confirm: <span class="required-star">*</span></label>
+          <input type="text" id="input-clear-inv-name" class="input-pill" placeholder="Enter exact investigation ID" required autocomplete="off">
+        </div>
+        <div id="clear-inv-modal-error" class="modal-error-alert" style="display: none; background: #FEF2F2; color: #991B1B; border: 1px solid #F87171; border-radius: 10px; padding: 10px; margin-top: 10px; font-size: 0.85rem;"></div>
+
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-clear-inv" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" id="btn-submit-clear-inv" class="btn btn-peach-pill" style="background: #E11D48; color: #FFF;">Permanently Delete Case</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 7: CLEAR ALL INVESTIGATION DATA -->
+  <div id="modal-clear-all" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-clear-all">
+    <div class="modal-card" style="border: 2px solid #DC2626;">
+      <div class="modal-card-header" style="border-bottom: 2px solid #FEE2E2;">
+        <h3 class="modal-card-title text-plum" id="modal-title-clear-all" style="color: #DC2626;">⚠️ Permanently Clear All System Data</h3>
+        <button id="btn-close-modal-clear-all" class="btn-circle-close" aria-label="Close dialog">×</button>
+      </div>
+      <form id="form-clear-all" class="modal-card-body">
+        <div class="claim-info-bubble" style="background: #FEF2F2; border-color: #FCA5A5; color: #991B1B; margin-bottom: 16px;">
+          <strong>HIGH-IMPACT ACTION:</strong> This will transactionally delete <strong>ALL investigations, documents, entities, claims, evidence, and reports</strong> across the entire application.
+          This action cannot be undone.
+          <div id="clear-all-modal-counts" style="margin-top: 8px; font-weight: 600;">Calculating affected record counts…</div>
+        </div>
+
+        <div class="form-field-group">
+          <label for="input-clear-all-phrase" class="field-label text-plum">Type <code>DELETE ALL SHERLOCK DATA</code> to enable deletion: <span class="required-star">*</span></label>
+          <input type="text" id="input-clear-all-phrase" class="input-pill" placeholder="DELETE ALL SHERLOCK DATA" required autocomplete="off">
+        </div>
+        <div id="clear-all-modal-error" class="modal-error-alert" style="display: none; background: #FEF2F2; color: #991B1B; border: 1px solid #F87171; border-radius: 10px; padding: 10px; margin-top: 10px; font-size: 0.85rem;"></div>
+
+        <div class="modal-card-footer">
+          <button type="button" id="btn-cancel-modal-clear-all" class="btn btn-dark-pill">Cancel</button>
+          <button type="submit" id="btn-submit-clear-all" class="btn btn-danger-pill" style="background: #DC2626; color: #FFF; border: none; padding: 10px 22px; border-radius: 20px; font-weight: 800; cursor: pointer;" disabled>Wipe All Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/stickers.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

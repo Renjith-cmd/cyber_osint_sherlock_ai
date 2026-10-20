@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-12T12:03:26Z",
+    "os": "Linux 7.2.4-arch1-2 x86_64",
+    "cpu_cores": 20,
+    "python_version": "3.14.7",
+    "has_pytorch": false,
+    "seed": 42,
+    "rss_baseline_mb": 623.21,
+    "rss_peak_mb": 623.21,
+    "rss_delta_mb": 0.0
+  },
+  "document_pipeline": {
+    "rule_mode": {
+      "small": {
+        "size_category": "small",
+        "char_count": 983,
+        "repetitions": 5,
+        "median_ms": 4.64,
+        "p95_ms": 4.8,
+        "mean_ms": 4.61,
+        "stdev_ms": 0.2,
+        "throughput_docs_per_sec": 215.74,
+        "throughput_chars_per_sec": 212072.24,
+        "claims_extracted": 9,
+        "entities_resolved": 18
+      },
+      "medium": {
+        "size_category": "medium",
+        "char_count": 9839,
+        "repetitions": 5,
+        "median_ms": 43.75,
+        "p95_ms": 45.13,
+        "mean_ms": 44.25,
+        "stdev_ms": 0.8,
+        "throughput_docs_per_sec": 22.86,
+        "throughput_chars_per_sec": 224898.49,
+        "claims_extracted": 90,
+        "entities_resolved": 180
+      },
+      "large": {
+        "size_category": "large",
+        "char_count": 49199,
+        "repetitions": 5,
+        "median_ms": 346.71,
+        "p95_ms": 370.22,
+        "mean_ms": 350.82,
+        "stdev_ms": 10.96,
+        "throughput_docs_per_sec": 2.88,
+        "throughput_chars_per_sec": 141900.85,
+        "claims_extracted": 450,
+        "entities_resolved": 900
+      }
+    },
+    "ml_mode": null
+  },
+  "entity_resolution": {
+    "zagat_fodors": {
+      "error": "'RestaurantDatasetAdapter' object has no attribute 'load_partition'"
+    }
+  },
+  "sqlite_persistence": {
+    "scale_10": {
+      "record_count": 11,
+      "cold_sync_ms": 0.22,
+      "warm_sync_ms": 0.24,
+      "read_list_ms": 0.24,
+      "reopen_hydrate_ms": 1.1,
+      "db_size_bytes": 94208,
+      "integrity_check": true
+    },
+    "scale_50": {
+      "record_count": 51,
+      "cold_sync_ms": 0.44,
+      "warm_sync_ms": 0.42,
+      "read_list_ms": 0.53,
+      "reopen_hydrate_ms": 1.53,
+      "db_size_bytes": 102400,
+      "integrity_check": true
+    },
+    "scale_100": {
+      "record_count": 101,
+      "cold_sync_ms": 0.76,
+      "warm_sync_ms": 0.69,
+      "read_list_ms": 0.86,
+      "reopen_hydrate_ms": 2.35,
+      "db_size_bytes": 106496,
+      "integrity_check": true
+    }
+  }
+}

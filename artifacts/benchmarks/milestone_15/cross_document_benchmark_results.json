@@ -1,0 +1,123 @@
+{
+  "milestone": 15,
+  "title": "Cross-Document Entity Resolution & Evidence-Grounded Investigation Benchmark",
+  "timestamp_epoch": 1791813663.699392,
+  "platform_info": {
+    "python_version": "3.14.7",
+    "os": "Linux",
+    "machine": "x86_64"
+  },
+  "performance_profile": {
+    "total_benchmark_runtime_seconds": 0.006,
+    "baseline_rss_mb": 39.11,
+    "peak_rss_mb": 41.94
+  },
+  "cross_document_entity_resolution": {
+    "total_pairs_evaluated": 10,
+    "true_positives": 3,
+    "false_positives": 0,
+    "true_negatives": 6,
+    "false_negatives": 0,
+    "review_count": 4,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "false_match_rate": 0.0,
+    "eval_latency_ms": 2.15,
+    "evaluations": [
+      {
+        "pair_id": "pair_01_person_corroborated_match",
+        "expected": "MATCH",
+        "actual": "MATCH",
+        "score": 0.9729,
+        "explanation": "Confident MATCH: high surface similarity (0.971) corroborating with shared context (Shared corporate affiliation: ['Vance Refrigeration']) and no contradictory attributes."
+      },
+      {
+        "pair_id": "pair_02_person_transliteration_match",
+        "expected": "MATCH",
+        "actual": "MATCH",
+        "score": 0.9636,
+        "explanation": "Confident MATCH: high surface similarity (0.962) corroborating with shared context (Shared geographic location: ['Moscow']) and no contradictory attributes."
+      },
+      {
+        "pair_id": "pair_03_homonym_distinct_people",
+        "expected": "REVIEW",
+        "actual": "REVIEW",
+        "score": 0.85,
+        "explanation": "Routed to REVIEW: High name similarity alone is insufficient to establish cross-document identity without corroborating organization, location, or identifier."
+      },
+      {
+        "pair_id": "pair_04_homonym_missing_context_review",
+        "expected": "REVIEW",
+        "actual": "REVIEW",
+        "score": 0.85,
+        "explanation": "Routed to REVIEW: High name similarity alone is insufficient to establish cross-document identity without corroborating organization, location, or identifier."
+      },
+      {
+        "pair_id": "pair_05_org_distinct_subtokens",
+        "expected": "NON_MATCH",
+        "actual": "REVIEW",
+        "score": 0.7032,
+        "explanation": "Routed to REVIEW: High name similarity alone is insufficient to establish cross-document identity without corroborating organization, location, or identifier."
+      },
+      {
+        "pair_id": "pair_06_org_subsidiary_distinction",
+        "expected": "NON_MATCH",
+        "actual": "NON_MATCH",
+        "score": 0.2882,
+        "explanation": "NON_MATCH: name similarity falls below minimum resolution threshold."
+      },
+      {
+        "pair_id": "pair_07_conflicting_reg_number",
+        "expected": "NON_MATCH",
+        "actual": "NON_MATCH",
+        "score": 0.2,
+        "explanation": "Rejected NON_MATCH: Hard constraint violation (Fatal identifier mismatch: conflicting reliable identifier (reg_num).)."
+      },
+      {
+        "pair_id": "pair_08_conflicting_tax_id",
+        "expected": "NON_MATCH",
+        "actual": "NON_MATCH",
+        "score": 0.2,
+        "explanation": "Rejected NON_MATCH: Hard constraint violation (Fatal identifier mismatch: conflicting reliable identifier (tax_id).)."
+      },
+      {
+        "pair_id": "pair_09_matching_reg_number",
+        "expected": "MATCH",
+        "actual": "MATCH",
+        "score": 0.95,
+        "explanation": "Confident MATCH: high surface similarity (0.947) corroborating with shared context (Matching unique identifier (lei): '5493006MHB84DD0ZWV18') and no contradictory attributes."
+      },
+      {
+        "pair_id": "pair_10_missing_context_review",
+        "expected": "REVIEW",
+        "actual": "REVIEW",
+        "score": 0.7439,
+        "explanation": "Routed to REVIEW: High name similarity alone is insufficient to establish cross-document identity without corroborating organization, location, or identifier."
+      }
+    ]
+  },
+  "evidence_grounded_relationships": {
+    "asserted_tier_verified": true,
+    "quoted_tier_verified": true,
+    "quoted_attribution": "Whistleblower",
+    "disputed_tier_verified": true,
+    "disputed_status_verified": true,
+    "duplicate_suppression_tested_instances": 5,
+    "unique_source_hashes_observed": 1,
+    "duplicate_evidence_count_observed": 4,
+    "duplicate_inflation_prevented": true,
+    "execution_latency_ms": 0.5
+  },
+  "reversibility_and_durability": {
+    "merge_operational_latency_ms": 0.08,
+    "reversal_operational_latency_ms": 0.04,
+    "split_operational_latency_ms": 0.03,
+    "reversal_verified": true,
+    "split_verified": true,
+    "non_match_constraint_enforced": true,
+    "sqlite_pragma_integrity": "ok",
+    "sqlite_rehydration_verified": true
+  },
+  "verdict": "PASSED_BENCHMARK_CRITERIA"
+}

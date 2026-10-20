@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <path d="M 28 112 Q 35 88, 60 85 Q 85 88, 92 112 Z" fill="#191629"/>
+  <polygon points="38,56 28,26 52,42" fill="#191629"/>
+  <polygon points="82,56 92,26 68,42" fill="#191629"/>
+  <ellipse cx="60" cy="65" rx="28" ry="24" fill="#191629"/>
+  <circle cx="49" cy="64" r="6" fill="#FFFFFF"/>
+  <circle cx="71" cy="64" r="6" fill="#FFFFFF"/>
+  <!-- Coffee Mug -->
+  <rect x="72" y="86" width="18" height="18" rx="3" fill="#F5B18D" stroke="#191629" stroke-width="1.8"/>
+  <path d="M 90 90 Q 96 95, 90 100" stroke="#191629" stroke-width="2" fill="none"/>
+  <path d="M 76 82 Q 78 78, 80 82" stroke="#E8DEC8" stroke-width="1.5" fill="none"/>
+</svg>

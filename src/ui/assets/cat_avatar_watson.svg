@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <!-- John Watson Cat Avatar (with white collar & bowtie) -->
+  <circle cx="80" cy="80" r="76" fill="#FBF9F5" stroke="#EBE4DC" stroke-width="2"/>
+  <!-- Body/Shoulders -->
+  <path d="M 32 152 Q 40 120, 80 115 Q 120 120, 128 152 Z" fill="#191629"/>
+  <!-- White Collar -->
+  <polygon points="62,116 80,132 72,142 56,128" fill="#FFFFFF"/>
+  <polygon points="98,116 80,132 88,142 104,128" fill="#FFFFFF"/>
+  <!-- Bowtie -->
+  <polygon points="70,128 80,132 70,136" fill="#F5B18D"/>
+  <polygon points="90,128 80,132 90,136" fill="#F5B18D"/>
+  <circle cx="80" cy="132" r="3.5" fill="#191629"/>
+
+  <!-- Ears -->
+  <polygon points="44,72 32,32 64,52" fill="#191629"/>
+  <polygon points="44,66 38,40 58,54" fill="#F7F4F0"/>
+  <polygon points="116,72 128,32 96,52" fill="#191629"/>
+  <polygon points="116,66 122,40 102,54" fill="#F7F4F0"/>
+
+  <!-- Head -->
+  <ellipse cx="80" cy="82" rx="42" ry="36" fill="#191629"/>
+
+  <!-- Big anime eyes -->
+  <!-- Left Eye -->
+  <ellipse cx="65" cy="80" rx="9" ry="12" fill="#FFFFFF"/>
+  <ellipse cx="66" cy="80" rx="6.5" ry="9" fill="#191629"/>
+  <circle cx="64" cy="77" r="3" fill="#FFFFFF"/>
+  <circle cx="68" cy="84" r="1.5" fill="#FFFFFF"/>
+  <!-- Right Eye -->
+  <ellipse cx="95" cy="80" rx="9" ry="12" fill="#FFFFFF"/>
+  <ellipse cx="94" cy="80" rx="6.5" ry="9" fill="#191629"/>
+  <circle cx="92" cy="77" r="3" fill="#FFFFFF"/>
+  <circle cx="96" cy="84" r="1.5" fill="#FFFFFF"/>
+
+  <!-- Peach Nose & White Mouth -->
+  <polygon points="80,92 77,88 83,88" fill="#F5B18D"/>
+  <path d="M 80 92 Q 76 98, 71 95" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 80 92 Q 84 98, 89 95" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Whiskers -->
+  <line x1="48" y1="88" x2="28" y2="85" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="48" y1="94" x2="26" y2="97" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="112" y1="88" x2="132" y2="85" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="112" y1="94" x2="134" y2="97" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

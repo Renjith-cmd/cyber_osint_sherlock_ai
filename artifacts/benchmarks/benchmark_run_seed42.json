@@ -1,0 +1,1935 @@
+{
+  "baselines": {
+    "blocking_pipeline": {
+      "baseline_id": "blocking_pipeline",
+      "description": "Standard candidate generation rules with default matcher and clustering.",
+      "deterministic_fingerprint": "4e144ad33a895463b7c8411141b9b1fba2c47f250d9168d601b4a4328325974d",
+      "metrics": {
+        "candidate_pairs_evaluated": 51,
+        "candidate_recall": 0.9090909090909091,
+        "cluster_f1": 0.8292682926829269,
+        "cluster_precision": 0.8947368421052632,
+        "cluster_purity": 0.9642857142857143,
+        "cluster_recall": 0.7727272727272727,
+        "compatible_reduction_ratio": 0.9537624660018132,
+        "match_f1": 0.7555555555555556,
+        "match_precision": 0.68,
+        "match_recall": 0.85,
+        "reduction_ratio": 0.9668831168831169,
+        "review_rate": 0.17647058823529413
+      },
+      "name": "Baseline 2: Existing Blocking Pipeline",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.0015407359996970627,
+        "clustering_seconds": 0.0006881980007165112,
+        "evaluation_seconds": 0.0006292210000538034,
+        "pairwise_matching_seconds": 0.0040875380000215955,
+        "total_pipeline_seconds": 0.006316472000435169,
+        "total_runtime_seconds": 0.006945693000488973
+      }
+    },
+    "conservative_clustering": {
+      "baseline_id": "conservative_clustering",
+      "description": "Strict full-clique clustering requiring mutual pairwise validation for all cluster members.",
+      "deterministic_fingerprint": "d045d548f2271c96b8eca881cde34e243eeb94cdf13c80d81db2da461cd38fe8",
+      "metrics": {
+        "candidate_pairs_evaluated": 51,
+        "cluster_f1": 0.7692307692307693,
+        "cluster_precision": 0.8823529411764706,
+        "cluster_purity": 0.9642857142857143,
+        "cluster_recall": 0.6818181818181818,
+        "multi_record_clusters": 15,
+        "singletons": 25,
+        "total_clusters": 40
+      },
+      "name": "Baseline 3: Conservative Clustering",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.001541188999908627,
+        "clustering_seconds": 0.0006533189998663147,
+        "evaluation_seconds": 0.0006217129994183779,
+        "pairwise_matching_seconds": 0.003972952000367513,
+        "total_pipeline_seconds": 0.006167460000142455,
+        "total_runtime_seconds": 0.006789172999560833
+      }
+    },
+    "default_clustering": {
+      "baseline_id": "default_clustering",
+      "description": "Connected component clustering with pairwise contradiction protection.",
+      "deterministic_fingerprint": "993c68a58aaf1b4ccccbabef7b0d884f167ab06ecb66dd28ccc32dfa2f8981e1",
+      "metrics": {
+        "candidate_pairs_evaluated": 51,
+        "cluster_f1": 0.8292682926829269,
+        "cluster_precision": 0.8947368421052632,
+        "cluster_purity": 0.9642857142857143,
+        "cluster_recall": 0.7727272727272727,
+        "multi_record_clusters": 15,
+        "singletons": 24,
+        "total_clusters": 39
+      },
+      "name": "Baseline 4: Default Clustering",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.0015102990000741556,
+        "clustering_seconds": 0.000703067999893392,
+        "evaluation_seconds": 0.0006087140000090585,
+        "pairwise_matching_seconds": 0.004069274999892514,
+        "total_pipeline_seconds": 0.006282641999860061,
+        "total_runtime_seconds": 0.00689135599986912
+      }
+    },
+    "exhaustive_pairs": {
+      "baseline_id": "exhaustive_pairs",
+      "description": "Compares all entity-type-compatible pairs using identical matcher and clusterer.",
+      "deterministic_fingerprint": "0360f9b41a517d22d37806a8fd4dcc57207e48e3d22497e628be28883ef29bcb",
+      "metrics": {
+        "candidate_pairs_evaluated": 1103,
+        "cluster_f1": 0.8292682926829269,
+        "cluster_precision": 0.8947368421052632,
+        "cluster_purity": 0.9642857142857143,
+        "cluster_recall": 0.7727272727272727,
+        "match_f1": 0.6923076923076923,
+        "match_precision": 0.6,
+        "match_recall": 0.8181818181818182,
+        "review_rate": 0.012692656391659111
+      },
+      "name": "Baseline 1: Exhaustive Pair Evaluation",
+      "timings_seconds": {
+        "clustering_seconds": 0.0014417350002986495,
+        "evaluation_seconds": 0.0005519320002349559,
+        "matching_seconds": 0.09824409199973161,
+        "pair_generation_seconds": 0.005616677000034542,
+        "total_seconds": 0.10585443600029976
+      }
+    }
+  },
+  "deterministic_fingerprint": "4e835b97d2da54b0c3a335e288dd0d380724bd61f036478cbd7d91afa835d9bd",
+  "metadata": {
+    "benchmark_version": "sherlock_benchmark_v1",
+    "elapsed_total_seconds": 0.163,
+    "platform": "Linux-7.2.4-arch1-2-x86_64-with-glibc2.44",
+    "python_version": "3.14.7",
+    "review_is_error_setting": true,
+    "review_is_match_setting": false,
+    "scenarios_evaluated_count": 17,
+    "seed": 42,
+    "timestamp_epoch": 1791733802.6234531
+  },
+  "scenarios": {
+    "aliases_with_config": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 1,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 0,
+        "pairwise_true_positives": 1,
+        "purity": 1.0,
+        "singleton_clusters": 0,
+        "total_clusters": 1,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "8a072f4691623c161b87e5b48ea553881c190215b535e2e8fd9b0187a9d67d3e",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 1.0,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 1.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 1,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 1
+      },
+      "record_count": 2,
+      "scenario_id": "aliases_with_config",
+      "scenario_name": "Known Aliases With Configuration",
+      "timings_seconds": {
+        "candidate_generation_seconds": 7.318200005101971e-05,
+        "clustering_seconds": 4.430700028024148e-05,
+        "evaluation_seconds": 3.5645000025397167e-05,
+        "pairwise_matching_seconds": 7.002399979683105e-05,
+        "total_pipeline_seconds": 0.00018751300012809224,
+        "total_runtime_seconds": 0.0002231580001534894
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "aliases_without_config": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 1,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 1,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 0,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 2,
+        "total_clusters": 2,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "e4f893bbb695d829afea7593d838b5a26055a173ae8cd719b8c42af685c9fa50",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [
+          {
+            "predicted_cluster_1": "ec_alias_nocfg_1_4fdd211d",
+            "predicted_cluster_2": "ec_alias_nocfg_2_5d112d1d",
+            "record_id_1": "alias_nocfg_1",
+            "record_id_2": "alias_nocfg_2",
+            "true_entity": "e_orwell"
+          }
+        ],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [
+          {
+            "candidate_pair_id": "cp_alias_nocfg_1_alias_nocfg_2",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          }
+        ],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": [
+          "cp_alias_nocfg_1_alias_nocfg_2"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 1.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 1,
+      "match_metrics": {
+        "accuracy": 0.0,
+        "f1": 0.0,
+        "false_negatives": 1,
+        "false_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 1,
+        "review_rate": 1.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 0
+      },
+      "record_count": 2,
+      "scenario_id": "aliases_without_config",
+      "scenario_name": "Known Aliases Without Configuration",
+      "timings_seconds": {
+        "candidate_generation_seconds": 8.558400077163242e-05,
+        "clustering_seconds": 4.5107000005373266e-05,
+        "evaluation_seconds": 3.431999994063517e-05,
+        "pairwise_matching_seconds": 0.0001285819998884108,
+        "total_pipeline_seconds": 0.0002592730006654165,
+        "total_runtime_seconds": 0.00029359300060605165
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "common_names": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 0,
+        "ground_truth_positives_count": 0,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 1,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 2,
+        "total_clusters": 2,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "fbb1ad10483794f70602f4853fdc98b9c1e0af970a6c117094a53999e41a8784",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.0,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 0.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 1,
+        "true_negatives": 1,
+        "true_positives": 0
+      },
+      "record_count": 2,
+      "scenario_id": "common_names",
+      "scenario_name": "Common Names Belonging to Different People",
+      "timings_seconds": {
+        "candidate_generation_seconds": 6.503399981738767e-05,
+        "clustering_seconds": 4.1383999814570416e-05,
+        "evaluation_seconds": 2.7269999918644316e-05,
+        "pairwise_matching_seconds": 6.342500000755535e-05,
+        "total_pipeline_seconds": 0.00016984299963951344,
+        "total_runtime_seconds": 0.00019711299955815775
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "conflicting_attributes": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 0,
+        "ground_truth_positives_count": 0,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 1,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 2,
+        "total_clusters": 2,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "7693e9c547bf80296203a4624fd8326275009322285f4ab814b858a0e516d383",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.0,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 0.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 1,
+        "true_negatives": 1,
+        "true_positives": 0
+      },
+      "record_count": 2,
+      "scenario_id": "conflicting_attributes",
+      "scenario_name": "Conflicting Attributes",
+      "timings_seconds": {
+        "candidate_generation_seconds": 6.950800070626428e-05,
+        "clustering_seconds": 4.8191999667324126e-05,
+        "evaluation_seconds": 2.9275999622768722e-05,
+        "pairwise_matching_seconds": 7.111800005077384e-05,
+        "total_pipeline_seconds": 0.00018881800042436225,
+        "total_runtime_seconds": 0.00021809400004713098
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "contradiction_in_component": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 3,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 1,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 3,
+        "total_possible_pairs": 3
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 2,
+        "pairwise_true_positives": 1,
+        "purity": 1.0,
+        "singleton_clusters": 1,
+        "total_clusters": 2,
+        "total_records": 3
+      },
+      "deterministic_fingerprint": "a7fda6d7e3bbaa164a206b4bc3e5073ac777fd81c20f2d9ce22f4835c415a7e1",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [
+          {
+            "candidate_pair_id": "cp_contra_b_contra_c",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.428
+          }
+        ],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": [
+          "cp_contra_b_contra_c"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 3,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 0.6666666666666666,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 0.5,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.3333333333333333,
+        "total_evaluated_decisions": 3
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 0.6666666666666666,
+        "f1": 0.6666666666666666,
+        "false_negatives": 0,
+        "false_positives": 1,
+        "precision": 0.5,
+        "recall": 1.0,
+        "review_count": 1,
+        "review_rate": 0.3333333333333333,
+        "total_evaluated": 3,
+        "true_negatives": 1,
+        "true_positives": 1
+      },
+      "record_count": 3,
+      "scenario_id": "contradiction_in_component",
+      "scenario_name": "Contradiction in Candidate Component",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.00011466399973869557,
+        "clustering_seconds": 5.5730999520164914e-05,
+        "evaluation_seconds": 3.999800082965521e-05,
+        "pairwise_matching_seconds": 0.00023776300076860934,
+        "total_pipeline_seconds": 0.0004081580000274698,
+        "total_runtime_seconds": 0.00044815600085712504
+      },
+      "total_compatible_pairs": 3,
+      "total_possible_pairs": 3
+    },
+    "cross_entity_types": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 0,
+        "candidate_recall": 0.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 0,
+        "ground_truth_positives_count": 0,
+        "missed_positives_count": 0,
+        "reduction_ratio": 1.0,
+        "total_compatible_pairs": 0,
+        "total_possible_pairs": 3
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 3,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 3,
+        "total_clusters": 3,
+        "total_records": 3
+      },
+      "deterministic_fingerprint": "7cd1b888187bede0fbdb5dbaf6c1cd884b7a096ac63cdbf6bcaf61bc2b82dad9",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 0,
+        "candidate_recall": 0.0,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 1.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 0
+      },
+      "entity_count": 3,
+      "match_metrics": {
+        "accuracy": 0.0,
+        "f1": 0.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 0,
+        "true_negatives": 0,
+        "true_positives": 0
+      },
+      "record_count": 3,
+      "scenario_id": "cross_entity_types",
+      "scenario_name": "Similar Names Different Entity Types",
+      "timings_seconds": {
+        "candidate_generation_seconds": 8.105400047497824e-05,
+        "clustering_seconds": 5.306799994286848e-05,
+        "evaluation_seconds": 2.4585999199189246e-05,
+        "pairwise_matching_seconds": 5.699994289898314e-07,
+        "total_pipeline_seconds": 0.00013469199984683655,
+        "total_runtime_seconds": 0.0001592779990460258
+      },
+      "total_compatible_pairs": 0,
+      "total_possible_pairs": 3
+    },
+    "exact_duplicates": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 1,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 0,
+        "pairwise_true_positives": 1,
+        "purity": 1.0,
+        "singleton_clusters": 0,
+        "total_clusters": 1,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "77496b937dfd37b27e950f48c5ee4adedc02b740f92ac4af606bb222cf7bbece",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 1.0,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 1.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 1,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 1
+      },
+      "record_count": 2,
+      "scenario_id": "exact_duplicates",
+      "scenario_name": "Exact Duplicates",
+      "timings_seconds": {
+        "candidate_generation_seconds": 9.69279999480932e-05,
+        "clustering_seconds": 4.246200023771962e-05,
+        "evaluation_seconds": 3.807800021604635e-05,
+        "pairwise_matching_seconds": 7.851099962863373e-05,
+        "total_pipeline_seconds": 0.00021790099981444655,
+        "total_runtime_seconds": 0.0002559790000304929
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "initials_and_abbreviations": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.5,
+        "compatible_reduction_ratio": 0.5,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 2,
+        "missed_positives_count": 1,
+        "reduction_ratio": 0.8333333333333334,
+        "total_compatible_pairs": 2,
+        "total_possible_pairs": 6
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 2,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 4,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 4,
+        "total_clusters": 4,
+        "total_records": 4
+      },
+      "deterministic_fingerprint": "b197329e27818f9d33f6c5dc6153deb56e14f82e7a74dff0214ff41d4c3ddc9b",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [
+          {
+            "predicted_cluster_1": "ec_abbr_1_147c1486",
+            "predicted_cluster_2": "ec_abbr_2_c463af8f",
+            "record_id_1": "abbr_1",
+            "record_id_2": "abbr_2",
+            "true_entity": "e_nasa"
+          },
+          {
+            "predicted_cluster_1": "ec_abbr_3_5e740903",
+            "predicted_cluster_2": "ec_abbr_4_4de518bb",
+            "record_id_1": "abbr_3",
+            "record_id_2": "abbr_4",
+            "true_entity": "e_doyle"
+          }
+        ],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [
+          {
+            "candidate_pair_id": "cp_abbr_3_abbr_4",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.64
+          }
+        ],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": [
+          "cp_abbr_3_abbr_4"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.5,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 0.8333333333333334,
+        "review_rate": 1.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 0.0,
+        "f1": 0.0,
+        "false_negatives": 1,
+        "false_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 1,
+        "review_rate": 1.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 0
+      },
+      "record_count": 4,
+      "scenario_id": "initials_and_abbreviations",
+      "scenario_name": "Initials and Abbreviations",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.00014855399967927951,
+        "clustering_seconds": 7.278999964910327e-05,
+        "evaluation_seconds": 4.130500019527972e-05,
+        "pairwise_matching_seconds": 0.00012560000050143572,
+        "total_pipeline_seconds": 0.0003469439998298185,
+        "total_runtime_seconds": 0.0003882490000250982
+      },
+      "total_compatible_pairs": 2,
+      "total_possible_pairs": 6
+    },
+    "master_benchmark": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 51,
+        "candidate_recall": 0.9090909090909091,
+        "compatible_reduction_ratio": 0.9537624660018132,
+        "covered_positives_count": 20,
+        "ground_truth_positives_count": 22,
+        "missed_positives_count": 2,
+        "reduction_ratio": 0.9668831168831169,
+        "total_compatible_pairs": 1103,
+        "total_possible_pairs": 1540
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 3,
+        "multi_record_clusters": 15,
+        "pairwise_f1": 0.8292682926829269,
+        "pairwise_false_negatives": 5,
+        "pairwise_false_positives": 2,
+        "pairwise_precision": 0.8947368421052632,
+        "pairwise_recall": 0.7727272727272727,
+        "pairwise_true_negatives": 1516,
+        "pairwise_true_positives": 17,
+        "purity": 0.9642857142857143,
+        "singleton_clusters": 24,
+        "total_clusters": 39,
+        "total_records": 56
+      },
+      "deterministic_fingerprint": "6475e181182b2518ee80239ead135cae308088a82d1809b2c05451d705bb416d",
+      "diagnostics": {
+        "clustering_incorrect_merges": [
+          {
+            "predicted_cluster": "ec_conf_1_1e7092b3",
+            "record_id_1": "conf_1",
+            "record_id_2": "r7a",
+            "true_entity_1": "e_bowman_a",
+            "true_entity_2": "c_bowman_1"
+          },
+          {
+            "predicted_cluster": "ec_conf_2_b2e33e66",
+            "record_id_1": "conf_2",
+            "record_id_2": "r7b",
+            "true_entity_1": "e_bowman_b",
+            "true_entity_2": "c_bowman_2"
+          }
+        ],
+        "clustering_missed_comemberships": [
+          {
+            "predicted_cluster_1": "ec_abbr_1_147c1486",
+            "predicted_cluster_2": "ec_abbr_2_c463af8f",
+            "record_id_1": "abbr_1",
+            "record_id_2": "abbr_2",
+            "true_entity": "e_nasa"
+          },
+          {
+            "predicted_cluster_1": "ec_abbr_3_5e740903",
+            "predicted_cluster_2": "ec_abbr_4_4de518bb",
+            "record_id_1": "abbr_3",
+            "record_id_2": "abbr_4",
+            "true_entity": "e_doyle"
+          },
+          {
+            "predicted_cluster_1": "ec_alias_nocfg_1_4fdd211d",
+            "predicted_cluster_2": "ec_alias_nocfg_2_5d112d1d",
+            "record_id_1": "alias_nocfg_1",
+            "record_id_2": "alias_nocfg_2",
+            "true_entity": "e_orwell"
+          },
+          {
+            "predicted_cluster_1": "ec_typo_1_65be5a69",
+            "predicted_cluster_2": "ec_typo_3_826b685a",
+            "record_id_1": "typo_1",
+            "record_id_2": "typo_3",
+            "true_entity": "e_alex"
+          },
+          {
+            "predicted_cluster_1": "ec_typo_1_65be5a69",
+            "predicted_cluster_2": "ec_typo_3_826b685a",
+            "record_id_1": "typo_2",
+            "record_id_2": "typo_3",
+            "true_entity": "e_alex"
+          }
+        ],
+        "false_matches": [
+          {
+            "candidate_pair_id": "cp_cname_1_r4a",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.4648
+          },
+          {
+            "candidate_pair_id": "cp_cname_1_r4b",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.4648
+          },
+          {
+            "candidate_pair_id": "cp_cname_2_r4a",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.4648
+          },
+          {
+            "candidate_pair_id": "cp_cname_2_r4b",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.4648
+          },
+          {
+            "candidate_pair_id": "cp_conf_1_r7a",
+            "decision": "MATCH",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Evidence sufficiently confirms identity across name and attributes",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 1.0
+          },
+          {
+            "candidate_pair_id": "cp_conf_2_r7b",
+            "decision": "MATCH",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Evidence sufficiently confirms identity across name and attributes",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 1.0
+          },
+          {
+            "candidate_pair_id": "cp_contra_b_contra_c",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.428
+          },
+          {
+            "candidate_pair_id": "cp_ctx_1_ctx_2",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.35
+          }
+        ],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [
+          {
+            "candidate_pair_id": "cp_abbr_3_abbr_4",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.64
+          },
+          {
+            "candidate_pair_id": "cp_alias_nocfg_1_alias_nocfg_2",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          },
+          {
+            "candidate_pair_id": "cp_typo_2_typo_3",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          }
+        ],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [
+          {
+            "candidate_pair_id": "cp_typo_2_typo_3",
+            "conflicting_attribute": null,
+            "left_record_id": "typo_2",
+            "rejection_reason": "Ambiguous REVIEW decision exists between member 'typo_2' and member 'typo_3'",
+            "right_record_id": "typo_3"
+          }
+        ],
+        "unresolved_candidate_pairs": [
+          "cp_abbr_3_abbr_4",
+          "cp_alias_nocfg_1_alias_nocfg_2",
+          "cp_cname_1_r4a",
+          "cp_cname_1_r4b",
+          "cp_cname_2_r4a",
+          "cp_cname_2_r4b",
+          "cp_contra_b_contra_c",
+          "cp_ctx_1_ctx_2",
+          "cp_typo_2_typo_3"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 51,
+        "candidate_recall": 0.9090909090909091,
+        "end_to_end_recall": 0.7727272727272727,
+        "f1": 0.7234042553191491,
+        "matcher_recall_on_candidates": 0.85,
+        "precision": 0.68,
+        "reduction_ratio": 0.9668831168831169,
+        "review_rate": 0.17647058823529413,
+        "total_evaluated_decisions": 51
+      },
+      "entity_count": 37,
+      "match_metrics": {
+        "accuracy": 0.7843137254901961,
+        "f1": 0.7555555555555556,
+        "false_negatives": 3,
+        "false_positives": 8,
+        "precision": 0.68,
+        "recall": 0.85,
+        "review_count": 9,
+        "review_rate": 0.17647058823529413,
+        "total_evaluated": 51,
+        "true_negatives": 23,
+        "true_positives": 17
+      },
+      "record_count": 56,
+      "scenario_id": "master_benchmark",
+      "scenario_name": "Master Benchmark Suite",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.0015931410007397062,
+        "clustering_seconds": 0.0008057840004767058,
+        "evaluation_seconds": 0.0006549170002472238,
+        "pairwise_matching_seconds": 0.003976612999395002,
+        "total_pipeline_seconds": 0.006375538000611414,
+        "total_runtime_seconds": 0.0070304550008586375
+      },
+      "total_compatible_pairs": 1103,
+      "total_possible_pairs": 1540
+    },
+    "missing_attributes": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 1,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 0,
+        "pairwise_true_positives": 1,
+        "purity": 1.0,
+        "singleton_clusters": 0,
+        "total_clusters": 1,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "5571616b7f4171878756322a5e9e90ceb5f57cb8b56b25b882759002993f4d11",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 1.0,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 1.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 1,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 1
+      },
+      "record_count": 2,
+      "scenario_id": "missing_attributes",
+      "scenario_name": "Missing Attributes",
+      "timings_seconds": {
+        "candidate_generation_seconds": 7.291299971257104e-05,
+        "clustering_seconds": 4.3476999962877017e-05,
+        "evaluation_seconds": 3.3166000321216416e-05,
+        "pairwise_matching_seconds": 6.751900036761072e-05,
+        "total_pipeline_seconds": 0.00018390900004305877,
+        "total_runtime_seconds": 0.00021707500036427518
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "mixed_cluster_sizes": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.6666666666666667,
+        "covered_positives_count": 1,
+        "ground_truth_positives_count": 1,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.6666666666666667,
+        "total_compatible_pairs": 3,
+        "total_possible_pairs": 3
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 2,
+        "pairwise_true_positives": 1,
+        "purity": 1.0,
+        "singleton_clusters": 1,
+        "total_clusters": 2,
+        "total_records": 3
+      },
+      "deterministic_fingerprint": "65488c70c5cc1801091fac8565373e305b096d76270439a9d16036a2943a6c16",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 1.0,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 1.0,
+        "reduction_ratio": 0.6666666666666667,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 1
+      },
+      "record_count": 3,
+      "scenario_id": "mixed_cluster_sizes",
+      "scenario_name": "Mixed Cluster Sizes",
+      "timings_seconds": {
+        "candidate_generation_seconds": 9.324500024376903e-05,
+        "clustering_seconds": 5.726200015487848e-05,
+        "evaluation_seconds": 3.2545000067329966e-05,
+        "pairwise_matching_seconds": 6.487300015578512e-05,
+        "total_pipeline_seconds": 0.00021538000055443263,
+        "total_runtime_seconds": 0.0002479250006217626
+      },
+      "total_compatible_pairs": 3,
+      "total_possible_pairs": 3
+    },
+    "procedural_seed_42": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 122,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.6524216524216524,
+        "covered_positives_count": 9,
+        "ground_truth_positives_count": 9,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.6524216524216524,
+        "total_compatible_pairs": 351,
+        "total_possible_pairs": 351
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 9,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 342,
+        "pairwise_true_positives": 9,
+        "purity": 1.0,
+        "singleton_clusters": 9,
+        "total_clusters": 18,
+        "total_records": 27
+      },
+      "deterministic_fingerprint": "cd3147384ff8494da59a0c6a8a44e60b2cd2c044ed80a34f1b6c74fdd57c99c5",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [
+          {
+            "candidate_pair_id": "cp_proc_r_002_b_proc_r_014_a",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Ambiguous or incomplete evidence within review threshold band",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.5638
+          },
+          {
+            "candidate_pair_id": "cp_proc_r_007_a_proc_r_012_b",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          },
+          {
+            "candidate_pair_id": "cp_proc_r_007_b_proc_r_012_a",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          },
+          {
+            "candidate_pair_id": "cp_proc_r_007_b_proc_r_012_b",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          }
+        ],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": [
+          "cp_proc_r_002_b_proc_r_014_a",
+          "cp_proc_r_007_a_proc_r_012_b",
+          "cp_proc_r_007_b_proc_r_012_a",
+          "cp_proc_r_007_b_proc_r_012_b"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 122,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 0.8181818181818181,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 0.6923076923076923,
+        "reduction_ratio": 0.6524216524216524,
+        "review_rate": 0.03278688524590164,
+        "total_evaluated_decisions": 122
+      },
+      "entity_count": 18,
+      "match_metrics": {
+        "accuracy": 0.9672131147540983,
+        "f1": 0.8181818181818181,
+        "false_negatives": 0,
+        "false_positives": 4,
+        "precision": 0.6923076923076923,
+        "recall": 1.0,
+        "review_count": 4,
+        "review_rate": 0.03278688524590164,
+        "total_evaluated": 122,
+        "true_negatives": 109,
+        "true_positives": 9
+      },
+      "record_count": 27,
+      "scenario_id": "procedural_seed_42",
+      "scenario_name": "Procedural Benchmark (Seed 42)",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.0016209100003834465,
+        "clustering_seconds": 0.000584959000661911,
+        "evaluation_seconds": 0.0004230799995639245,
+        "pairwise_matching_seconds": 0.013344151999262976,
+        "total_pipeline_seconds": 0.015550021000308334,
+        "total_runtime_seconds": 0.01597310099987226
+      },
+      "total_compatible_pairs": 351,
+      "total_possible_pairs": 351
+    },
+    "shared_context": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 0,
+        "ground_truth_positives_count": 0,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 1,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 1,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 2,
+        "total_clusters": 2,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "4ab90d594c6fed14838d01eeb96a19aa03a6f5e75d33a9ece1cd7a1993e4be22",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [
+          {
+            "candidate_pair_id": "cp_ctx_1_ctx_2",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.35
+          }
+        ],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": [
+          "cp_ctx_1_ctx_2"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 1,
+        "candidate_recall": 0.0,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 1.0,
+        "total_evaluated_decisions": 1
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 0.0,
+        "f1": 0.0,
+        "false_negatives": 0,
+        "false_positives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 1,
+        "review_rate": 1.0,
+        "total_evaluated": 1,
+        "true_negatives": 0,
+        "true_positives": 0
+      },
+      "record_count": 2,
+      "scenario_id": "shared_context",
+      "scenario_name": "Shared Context Different People",
+      "timings_seconds": {
+        "candidate_generation_seconds": 7.092299983924022e-05,
+        "clustering_seconds": 5.022200002713362e-05,
+        "evaluation_seconds": 3.0469000193988904e-05,
+        "pairwise_matching_seconds": 0.00012683499971899437,
+        "total_pipeline_seconds": 0.0002479799995853682,
+        "total_runtime_seconds": 0.0002784489997793571
+      },
+      "total_compatible_pairs": 1,
+      "total_possible_pairs": 1
+    },
+    "spelling_variations": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 3,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 3,
+        "ground_truth_positives_count": 3,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.0,
+        "total_compatible_pairs": 3,
+        "total_possible_pairs": 3
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 2,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 0.5,
+        "pairwise_false_negatives": 2,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 0.3333333333333333,
+        "pairwise_true_negatives": 0,
+        "pairwise_true_positives": 1,
+        "purity": 1.0,
+        "singleton_clusters": 1,
+        "total_clusters": 2,
+        "total_records": 3
+      },
+      "deterministic_fingerprint": "c09cd9c75b48a8f14c00f4ff7402e6d1e9e1a40cc1f1cc0d757cf6715afa6e90",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [
+          {
+            "predicted_cluster_1": "ec_typo_1_65be5a69",
+            "predicted_cluster_2": "ec_typo_3_826b685a",
+            "record_id_1": "typo_1",
+            "record_id_2": "typo_3",
+            "true_entity": "e_alex"
+          },
+          {
+            "predicted_cluster_1": "ec_typo_1_65be5a69",
+            "predicted_cluster_2": "ec_typo_3_826b685a",
+            "record_id_1": "typo_2",
+            "record_id_2": "typo_3",
+            "true_entity": "e_alex"
+          }
+        ],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [
+          {
+            "candidate_pair_id": "cp_typo_2_typo_3",
+            "decision": "REVIEW",
+            "left_name": "",
+            "left_record_id": "",
+            "primary_reason": "Distinct names with shared contextual attributes; insufficient proof of identity",
+            "right_name": "",
+            "right_record_id": "",
+            "score": 0.2625
+          }
+        ],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [
+          {
+            "candidate_pair_id": "cp_typo_2_typo_3",
+            "conflicting_attribute": null,
+            "left_record_id": "typo_2",
+            "rejection_reason": "Ambiguous REVIEW decision exists between member 'typo_2' and member 'typo_3'",
+            "right_record_id": "typo_3"
+          }
+        ],
+        "unresolved_candidate_pairs": [
+          "cp_typo_2_typo_3"
+        ]
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 3,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 0.6666666666666666,
+        "f1": 0.8,
+        "matcher_recall_on_candidates": 0.6666666666666666,
+        "precision": 1.0,
+        "reduction_ratio": 0.0,
+        "review_rate": 0.3333333333333333,
+        "total_evaluated_decisions": 3
+      },
+      "entity_count": 1,
+      "match_metrics": {
+        "accuracy": 0.6666666666666666,
+        "f1": 0.8,
+        "false_negatives": 1,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "review_count": 1,
+        "review_rate": 0.3333333333333333,
+        "total_evaluated": 3,
+        "true_negatives": 0,
+        "true_positives": 2
+      },
+      "record_count": 3,
+      "scenario_id": "spelling_variations",
+      "scenario_name": "Spelling Variations and Transpositions",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.00011828300011984538,
+        "clustering_seconds": 6.764400040992768e-05,
+        "evaluation_seconds": 4.801799968845444e-05,
+        "pairwise_matching_seconds": 0.0003036149992112769,
+        "total_pipeline_seconds": 0.00048954199974105,
+        "total_runtime_seconds": 0.0005375599994295044
+      },
+      "total_compatible_pairs": 3,
+      "total_possible_pairs": 3
+    },
+    "standard_synthetic": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 11,
+        "candidate_recall": 1.0,
+        "compatible_reduction_ratio": 0.920863309352518,
+        "covered_positives_count": 8,
+        "ground_truth_positives_count": 8,
+        "missed_positives_count": 0,
+        "reduction_ratio": 0.9476190476190476,
+        "total_compatible_pairs": 139,
+        "total_possible_pairs": 210
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 3,
+        "multi_record_clusters": 6,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 202,
+        "pairwise_true_positives": 8,
+        "purity": 1.0,
+        "singleton_clusters": 8,
+        "total_clusters": 14,
+        "total_records": 21
+      },
+      "deterministic_fingerprint": "d334c0d70535bec1231e707482381bfcd681bc0df6741346d27efe39f2612207",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 11,
+        "candidate_recall": 1.0,
+        "end_to_end_recall": 1.0,
+        "f1": 1.0,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 1.0,
+        "reduction_ratio": 0.9476190476190476,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 11
+      },
+      "entity_count": 14,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 11,
+        "true_negatives": 3,
+        "true_positives": 8
+      },
+      "record_count": 21,
+      "scenario_id": "standard_synthetic",
+      "scenario_name": "Standard Synthetic Benchmark",
+      "timings_seconds": {
+        "candidate_generation_seconds": 0.0006108569996285951,
+        "clustering_seconds": 0.00033570399955351604,
+        "evaluation_seconds": 0.00018496400025469484,
+        "pairwise_matching_seconds": 0.0007950910003273748,
+        "total_pipeline_seconds": 0.001741651999509486,
+        "total_runtime_seconds": 0.0019266159997641807
+      },
+      "total_compatible_pairs": 139,
+      "total_possible_pairs": 210
+    },
+    "transitive_chain": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 2,
+        "candidate_recall": 0.6666666666666666,
+        "compatible_reduction_ratio": 0.33333333333333337,
+        "covered_positives_count": 2,
+        "ground_truth_positives_count": 3,
+        "missed_positives_count": 1,
+        "reduction_ratio": 0.33333333333333337,
+        "total_compatible_pairs": 3,
+        "total_possible_pairs": 3
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 3,
+        "multi_record_clusters": 1,
+        "pairwise_f1": 1.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_true_negatives": 0,
+        "pairwise_true_positives": 3,
+        "purity": 1.0,
+        "singleton_clusters": 0,
+        "total_clusters": 1,
+        "total_records": 3
+      },
+      "deterministic_fingerprint": "55c57e1e91588770f9bf3e33432c8b5beb1d0c93b7e053d0772752234b5a7689",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 2,
+        "candidate_recall": 0.6666666666666666,
+        "end_to_end_recall": 0.6666666666666666,
+        "f1": 0.8,
+        "matcher_recall_on_candidates": 1.0,
+        "precision": 1.0,
+        "reduction_ratio": 0.33333333333333337,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 2
+      },
+      "entity_count": 1,
+      "match_metrics": {
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 2,
+        "true_negatives": 0,
+        "true_positives": 2
+      },
+      "record_count": 3,
+      "scenario_id": "transitive_chain",
+      "scenario_name": "Transitive Chain With Missing Pair",
+      "timings_seconds": {
+        "candidate_generation_seconds": 9.541600047668908e-05,
+        "clustering_seconds": 8.860900015861262e-05,
+        "evaluation_seconds": 3.928900059690932e-05,
+        "pairwise_matching_seconds": 0.00011827999969682423,
+        "total_pipeline_seconds": 0.00030230500033212593,
+        "total_runtime_seconds": 0.00034159400092903525
+      },
+      "total_compatible_pairs": 3,
+      "total_possible_pairs": 3
+    },
+    "unrelated_singletons": {
+      "candidate_metrics": {
+        "candidate_pairs_count": 0,
+        "candidate_recall": 0.0,
+        "compatible_reduction_ratio": 0.0,
+        "covered_positives_count": 0,
+        "ground_truth_positives_count": 0,
+        "missed_positives_count": 0,
+        "reduction_ratio": 1.0,
+        "total_compatible_pairs": 0,
+        "total_possible_pairs": 1
+      },
+      "clustering_metrics": {
+        "largest_cluster_size": 1,
+        "multi_record_clusters": 0,
+        "pairwise_f1": 0.0,
+        "pairwise_false_negatives": 0,
+        "pairwise_false_positives": 0,
+        "pairwise_precision": 0.0,
+        "pairwise_recall": 0.0,
+        "pairwise_true_negatives": 1,
+        "pairwise_true_positives": 0,
+        "purity": 1.0,
+        "singleton_clusters": 2,
+        "total_clusters": 2,
+        "total_records": 2
+      },
+      "deterministic_fingerprint": "863070a5abe3f9b2b8982e24fa12756ceb21b06ab92592ebdca5d620a8daaa99",
+      "diagnostics": {
+        "clustering_incorrect_merges": [],
+        "clustering_missed_comemberships": [],
+        "false_matches": [],
+        "metric_denominators": {
+          "accuracy_denom": "total_evaluated",
+          "candidate_recall_denom": "ground_truth_positives_count",
+          "compatible_reduction_denom": "total_compatible_pairs",
+          "f1_denom": "precision + recall",
+          "precision_denom": "tp + fp",
+          "recall_denom": "tp + fn",
+          "reduction_ratio_denom": "total_possible_pairs",
+          "zero_denominator_behavior": "Returns 0.0 without division-by-zero error"
+        },
+        "missed_candidate_positives": [],
+        "missed_matches": [],
+        "omitted_ground_truth_records": [],
+        "rejected_merges": [],
+        "unresolved_candidate_pairs": []
+      },
+      "end_to_end_metrics": {
+        "candidate_pairs_count": 0,
+        "candidate_recall": 0.0,
+        "end_to_end_recall": 0.0,
+        "f1": 0.0,
+        "matcher_recall_on_candidates": 0.0,
+        "precision": 0.0,
+        "reduction_ratio": 1.0,
+        "review_rate": 0.0,
+        "total_evaluated_decisions": 0
+      },
+      "entity_count": 2,
+      "match_metrics": {
+        "accuracy": 0.0,
+        "f1": 0.0,
+        "false_negatives": 0,
+        "false_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "review_count": 0,
+        "review_rate": 0.0,
+        "total_evaluated": 0,
+        "true_negatives": 0,
+        "true_positives": 0
+      },
+      "record_count": 2,
+      "scenario_id": "unrelated_singletons",
+      "scenario_name": "Unrelated Isolated Records",
+      "timings_seconds": {
+        "candidate_generation_seconds": 6.258400026126765e-05,
+        "clustering_seconds": 4.207500023767352e-05,
+        "evaluation_seconds": 2.2328999875753652e-05,
+        "pairwise_matching_seconds": 6.159998520161025e-07,
+        "total_pipeline_seconds": 0.00010527500035095727,
+        "total_runtime_seconds": 0.00012760400022671092
+      },
+      "total_compatible_pairs": 0,
+      "total_possible_pairs": 1
+    }
+  }
+}

@@ -1,0 +1,921 @@
+{
+  "benchmark_id": "sherlock_production_entity_resolution_v2",
+  "cross_partition_candidates_count": 3718,
+  "global_candidates_count": 6797,
+  "is_offline_fixture": false,
+  "master_deterministic_fingerprint": "77ee58698d7009f51d6b5d369369be3de497b5743cffe3bec23b7d066d411403",
+  "milestone": "Milestone 7",
+  "seed": 42,
+  "splits": {
+    "dev": {
+      "candidate_generation": {
+        "candidate_precision": 0.026908,
+        "candidate_recall": 1.0,
+        "candidates_count": 2490,
+        "covered_positives": 67,
+        "reduction_ratio": 0.9814,
+        "runtime_seconds": 0.0849
+      },
+      "entity_count": 451,
+      "ground_truth_positives": 67,
+      "partition_fingerprint": "632be003fb4fa06c5ced1e57d87d879bb029fba75e64a25ec9ca6e83a220ca92",
+      "partition_name": "DEV (Development 60%)",
+      "policies": {
+        "autonomous_high_precision": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "specificity": 1.0
+          },
+          "clustering_default": {
+            "cluster_purity": 1.0,
+            "clusters_count": 455,
+            "multi_record_clusters": 63,
+            "pairwise_f1": 0.9692,
+            "pairwise_fn": 4,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.9403,
+            "pairwise_tn": 133836,
+            "pairwise_tp": 63,
+            "singleton_clusters": 392
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 1.0,
+            "clusters_count": 455,
+            "multi_record_clusters": 63,
+            "pairwise_f1": 0.9692,
+            "pairwise_fn": 4,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.9403,
+            "pairwise_tn": 133836,
+            "pairwise_tp": 63,
+            "singleton_clusters": 392
+          },
+          "confusion_matrix": {
+            "fn_non_match": 0,
+            "fn_operational": 4,
+            "fp": 0,
+            "fp_in_review": 891,
+            "tn_non_match": 1532,
+            "tp": 63,
+            "tp_in_review": 4
+          },
+          "decisions_total": 2490,
+          "match_count": 63,
+          "match_threshold": 0.82,
+          "name_weight": 0.6,
+          "non_match_count": 1532,
+          "non_match_threshold": 0.3,
+          "operational_metrics_strict": {
+            "f1": 0.9692,
+            "precision": 1.0,
+            "recall": 0.9403
+          },
+          "policy_fingerprint": "c9179c50f06bd342958133f9bae1aaca68a17c7d5d6ea0c9e9bd2edb32efcfde",
+          "policy_model_version": "sherlock_match_decision_engine_v2_high_precision",
+          "review_count": 895,
+          "review_metrics": {
+            "review_precision": 0.0045,
+            "review_rate": 0.3594
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0188,
+            "matching": 0.4707
+          }
+        },
+        "baseline": {
+          "attribute_weight": 0.35,
+          "autonomous_metrics": {
+            "f1": 0.2553,
+            "precision": 1.0,
+            "recall": 0.1463,
+            "specificity": 1.0
+          },
+          "clustering_default": {
+            "cluster_purity": 1.0,
+            "clusters_count": 512,
+            "multi_record_clusters": 6,
+            "pairwise_f1": 0.1644,
+            "pairwise_fn": 61,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.0896,
+            "pairwise_tn": 133836,
+            "pairwise_tp": 6,
+            "singleton_clusters": 506
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 1.0,
+            "clusters_count": 512,
+            "multi_record_clusters": 6,
+            "pairwise_f1": 0.1644,
+            "pairwise_fn": 61,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.0896,
+            "pairwise_tn": 133836,
+            "pairwise_tp": 6,
+            "singleton_clusters": 506
+          },
+          "confusion_matrix": {
+            "fn_non_match": 35,
+            "fn_operational": 61,
+            "fp": 0,
+            "fp_in_review": 592,
+            "tn_non_match": 1831,
+            "tp": 6,
+            "tp_in_review": 26
+          },
+          "decisions_total": 2490,
+          "match_count": 6,
+          "match_threshold": 0.75,
+          "name_weight": 0.65,
+          "non_match_count": 1866,
+          "non_match_threshold": 0.38,
+          "operational_metrics_strict": {
+            "f1": 0.1644,
+            "precision": 1.0,
+            "recall": 0.0896
+          },
+          "policy_fingerprint": "876899ff408cdfd74e861de83aa1c5e7c9dce80b55e61f64add12b093f1ffbd9",
+          "policy_model_version": "sherlock_match_decision_engine_v1",
+          "review_count": 618,
+          "review_metrics": {
+            "review_precision": 0.0421,
+            "review_rate": 0.2482
+          },
+          "route_venue_conflicts_to_review": false,
+          "timings_seconds": {
+            "clustering": 0.021,
+            "matching": 0.3735
+          }
+        },
+        "calibrated_evidence": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "specificity": 1.0
+          },
+          "clustering_default": {
+            "cluster_purity": 1.0,
+            "clusters_count": 454,
+            "multi_record_clusters": 64,
+            "pairwise_f1": 0.9771,
+            "pairwise_fn": 3,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.9552,
+            "pairwise_tn": 133836,
+            "pairwise_tp": 64,
+            "singleton_clusters": 390
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 1.0,
+            "clusters_count": 454,
+            "multi_record_clusters": 64,
+            "pairwise_f1": 0.9771,
+            "pairwise_fn": 3,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.9552,
+            "pairwise_tn": 133836,
+            "pairwise_tp": 64,
+            "singleton_clusters": 390
+          },
+          "confusion_matrix": {
+            "fn_non_match": 0,
+            "fn_operational": 3,
+            "fp": 0,
+            "fp_in_review": 607,
+            "tn_non_match": 1816,
+            "tp": 64,
+            "tp_in_review": 3
+          },
+          "decisions_total": 2490,
+          "match_count": 64,
+          "match_threshold": 0.72,
+          "name_weight": 0.6,
+          "non_match_count": 1816,
+          "non_match_threshold": 0.35,
+          "operational_metrics_strict": {
+            "f1": 0.9771,
+            "precision": 1.0,
+            "recall": 0.9552
+          },
+          "policy_fingerprint": "42106e4e558ee79ffec97f093aab3d71d58d1780f09a8e543372a09e4e5da77e",
+          "policy_model_version": "sherlock_match_decision_engine_v2_calibrated",
+          "review_count": 610,
+          "review_metrics": {
+            "review_precision": 0.0049,
+            "review_rate": 0.245
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0363,
+            "matching": 0.4772
+          }
+        }
+      },
+      "record_count": 518,
+      "subcorpus_isolated_blocking_diagnostic": {
+        "candidate_recall": 1.0,
+        "candidates_count": 5050,
+        "covered_positives": 67,
+        "explanation": "When blocking runs on an isolated sub-corpus, high-frequency keys that exceed max_block_size=50 in the full corpus have <= 50 records in the smaller sub-corpus, preventing them from being pruned.",
+        "reduction_ratio": 0.9623,
+        "runtime_seconds": 0.0557
+      },
+      "total_possible_pairs": 133903
+    },
+    "full": {
+      "candidate_generation": {
+        "candidate_precision": 0.016478,
+        "candidate_recall": 1.0,
+        "candidates_count": 6797,
+        "covered_positives": 112,
+        "reduction_ratio": 0.9818,
+        "runtime_seconds": 0.0849
+      },
+      "entity_count": 752,
+      "ground_truth_positives": 112,
+      "partition_fingerprint": "30b1e8ac6e338e990364e1c66fbfb49f7930367b15d95704787bffb33d8d505e",
+      "partition_name": "FULL (Entire Dataset 100%)",
+      "policies": {
+        "autonomous_high_precision": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 0.9806,
+            "precision": 0.9902,
+            "recall": 0.9712,
+            "specificity": 0.9998
+          },
+          "clustering_default": {
+            "cluster_purity": 0.9988,
+            "clusters_count": 763,
+            "multi_record_clusters": 101,
+            "pairwise_f1": 0.939,
+            "pairwise_fn": 12,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9901,
+            "pairwise_recall": 0.8929,
+            "pairwise_tn": 372703,
+            "pairwise_tp": 100,
+            "singleton_clusters": 662
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 0.9988,
+            "clusters_count": 763,
+            "multi_record_clusters": 101,
+            "pairwise_f1": 0.939,
+            "pairwise_fn": 12,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9901,
+            "pairwise_recall": 0.8929,
+            "pairwise_tn": 372703,
+            "pairwise_tp": 100,
+            "singleton_clusters": 662
+          },
+          "confusion_matrix": {
+            "fn_non_match": 3,
+            "fn_operational": 11,
+            "fp": 1,
+            "fp_in_review": 2236,
+            "tn_non_match": 4448,
+            "tp": 101,
+            "tp_in_review": 8
+          },
+          "decisions_total": 6797,
+          "match_count": 102,
+          "match_threshold": 0.82,
+          "name_weight": 0.6,
+          "non_match_count": 4451,
+          "non_match_threshold": 0.3,
+          "operational_metrics_strict": {
+            "f1": 0.9439,
+            "precision": 0.9902,
+            "recall": 0.9018
+          },
+          "policy_fingerprint": "9b20e28a6025abbac15716a8fc203ce227ef3c2c2ce9140e301719344255a1ca",
+          "policy_model_version": "sherlock_match_decision_engine_v2_high_precision",
+          "review_count": 2244,
+          "review_metrics": {
+            "review_precision": 0.0036,
+            "review_rate": 0.3301
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0455,
+            "matching": 1.3004
+          }
+        },
+        "baseline": {
+          "attribute_weight": 0.35,
+          "autonomous_metrics": {
+            "f1": 0.2254,
+            "precision": 0.8889,
+            "recall": 0.129,
+            "specificity": 0.9998
+          },
+          "clustering_default": {
+            "cluster_purity": 0.9988,
+            "clusters_count": 855,
+            "multi_record_clusters": 9,
+            "pairwise_f1": 0.1322,
+            "pairwise_fn": 104,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.8889,
+            "pairwise_recall": 0.0714,
+            "pairwise_tn": 372703,
+            "pairwise_tp": 8,
+            "singleton_clusters": 846
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 0.9988,
+            "clusters_count": 855,
+            "multi_record_clusters": 9,
+            "pairwise_f1": 0.1322,
+            "pairwise_fn": 104,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.8889,
+            "pairwise_recall": 0.0714,
+            "pairwise_tn": 372703,
+            "pairwise_tp": 8,
+            "singleton_clusters": 846
+          },
+          "confusion_matrix": {
+            "fn_non_match": 54,
+            "fn_operational": 104,
+            "fp": 1,
+            "fp_in_review": 1560,
+            "tn_non_match": 5124,
+            "tp": 8,
+            "tp_in_review": 50
+          },
+          "decisions_total": 6797,
+          "match_count": 9,
+          "match_threshold": 0.75,
+          "name_weight": 0.65,
+          "non_match_count": 5178,
+          "non_match_threshold": 0.38,
+          "operational_metrics_strict": {
+            "f1": 0.1322,
+            "precision": 0.8889,
+            "recall": 0.0714
+          },
+          "policy_fingerprint": "542ec2884d4e8d9b06b775b74144c5ddf815f7435622b7a2aa3ee35de6875ed8",
+          "policy_model_version": "sherlock_match_decision_engine_v1",
+          "review_count": 1610,
+          "review_metrics": {
+            "review_precision": 0.0311,
+            "review_rate": 0.2369
+          },
+          "route_venue_conflicts_to_review": false,
+          "timings_seconds": {
+            "clustering": 0.0468,
+            "matching": 1.0267
+          }
+        },
+        "calibrated_evidence": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 0.981,
+            "precision": 0.9904,
+            "recall": 0.9717,
+            "specificity": 0.9998
+          },
+          "clustering_default": {
+            "cluster_purity": 0.9988,
+            "clusters_count": 761,
+            "multi_record_clusters": 103,
+            "pairwise_f1": 0.9488,
+            "pairwise_fn": 10,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9903,
+            "pairwise_recall": 0.9107,
+            "pairwise_tn": 372703,
+            "pairwise_tp": 102,
+            "singleton_clusters": 658
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 0.9988,
+            "clusters_count": 761,
+            "multi_record_clusters": 103,
+            "pairwise_f1": 0.9488,
+            "pairwise_fn": 10,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9903,
+            "pairwise_recall": 0.9107,
+            "pairwise_tn": 372703,
+            "pairwise_tp": 102,
+            "singleton_clusters": 658
+          },
+          "confusion_matrix": {
+            "fn_non_match": 3,
+            "fn_operational": 9,
+            "fp": 1,
+            "fp_in_review": 1491,
+            "tn_non_match": 5193,
+            "tp": 103,
+            "tp_in_review": 6
+          },
+          "decisions_total": 6797,
+          "match_count": 104,
+          "match_threshold": 0.72,
+          "name_weight": 0.6,
+          "non_match_count": 5196,
+          "non_match_threshold": 0.35,
+          "operational_metrics_strict": {
+            "f1": 0.9537,
+            "precision": 0.9904,
+            "recall": 0.9196
+          },
+          "policy_fingerprint": "f89142adf1db019af89b843df97cf9253a4d3711c42bca0ea744525ec7a13ffd",
+          "policy_model_version": "sherlock_match_decision_engine_v2_calibrated",
+          "review_count": 1497,
+          "review_metrics": {
+            "review_precision": 0.004,
+            "review_rate": 0.2202
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0458,
+            "matching": 1.3267
+          }
+        }
+      },
+      "record_count": 864,
+      "subcorpus_isolated_blocking_diagnostic": {
+        "candidate_recall": 1.0,
+        "candidates_count": 6797,
+        "covered_positives": 112,
+        "explanation": "When blocking runs on an isolated sub-corpus, high-frequency keys that exceed max_block_size=50 in the full corpus have <= 50 records in the smaller sub-corpus, preventing them from being pruned.",
+        "reduction_ratio": 0.9818,
+        "runtime_seconds": 0.0735
+      },
+      "total_possible_pairs": 372816
+    },
+    "test": {
+      "candidate_generation": {
+        "candidate_precision": 0.079038,
+        "candidate_recall": 1.0,
+        "candidates_count": 291,
+        "covered_positives": 23,
+        "reduction_ratio": 0.9807,
+        "runtime_seconds": 0.0849
+      },
+      "entity_count": 151,
+      "ground_truth_positives": 23,
+      "partition_fingerprint": "5e94310594b05dc13123345d7bfcd0b527445a63affabebe76017d834f5c2a7d",
+      "partition_name": "TEST (Held-Out Test 20%)",
+      "policies": {
+        "autonomous_high_precision": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 0.9268,
+            "precision": 0.95,
+            "recall": 0.9048,
+            "specificity": 0.9947
+          },
+          "clustering_default": {
+            "cluster_purity": 0.9943,
+            "clusters_count": 155,
+            "multi_record_clusters": 19,
+            "pairwise_f1": 0.8571,
+            "pairwise_fn": 5,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9474,
+            "pairwise_recall": 0.7826,
+            "pairwise_tn": 15027,
+            "pairwise_tp": 18,
+            "singleton_clusters": 136
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 0.9943,
+            "clusters_count": 155,
+            "multi_record_clusters": 19,
+            "pairwise_f1": 0.8571,
+            "pairwise_fn": 5,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9474,
+            "pairwise_recall": 0.7826,
+            "pairwise_tn": 15027,
+            "pairwise_tp": 18,
+            "singleton_clusters": 136
+          },
+          "confusion_matrix": {
+            "fn_non_match": 2,
+            "fn_operational": 4,
+            "fp": 1,
+            "fp_in_review": 80,
+            "tn_non_match": 187,
+            "tp": 19,
+            "tp_in_review": 2
+          },
+          "decisions_total": 291,
+          "match_count": 20,
+          "match_threshold": 0.82,
+          "name_weight": 0.6,
+          "non_match_count": 189,
+          "non_match_threshold": 0.3,
+          "operational_metrics_strict": {
+            "f1": 0.8837,
+            "precision": 0.95,
+            "recall": 0.8261
+          },
+          "policy_fingerprint": "134e1811e64117055cd811b0f7baf5ca84d30ebb9f601d7c8e9353795a410ba0",
+          "policy_model_version": "sherlock_match_decision_engine_v2_high_precision",
+          "review_count": 82,
+          "review_metrics": {
+            "review_precision": 0.0244,
+            "review_rate": 0.2818
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0034,
+            "matching": 0.0545
+          }
+        },
+        "baseline": {
+          "attribute_weight": 0.35,
+          "autonomous_metrics": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0
+          },
+          "clustering_default": {
+            "cluster_purity": 1.0,
+            "clusters_count": 174,
+            "multi_record_clusters": 0,
+            "pairwise_f1": 0.0,
+            "pairwise_fn": 23,
+            "pairwise_fp": 0,
+            "pairwise_precision": 0.0,
+            "pairwise_recall": 0.0,
+            "pairwise_tn": 15028,
+            "pairwise_tp": 0,
+            "singleton_clusters": 174
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 1.0,
+            "clusters_count": 174,
+            "multi_record_clusters": 0,
+            "pairwise_f1": 0.0,
+            "pairwise_fn": 23,
+            "pairwise_fp": 0,
+            "pairwise_precision": 0.0,
+            "pairwise_recall": 0.0,
+            "pairwise_tn": 15028,
+            "pairwise_tp": 0,
+            "singleton_clusters": 174
+          },
+          "confusion_matrix": {
+            "fn_non_match": 9,
+            "fn_operational": 23,
+            "fp": 0,
+            "fp_in_review": 55,
+            "tn_non_match": 213,
+            "tp": 0,
+            "tp_in_review": 14
+          },
+          "decisions_total": 291,
+          "match_count": 0,
+          "match_threshold": 0.75,
+          "name_weight": 0.65,
+          "non_match_count": 222,
+          "non_match_threshold": 0.38,
+          "operational_metrics_strict": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "policy_fingerprint": "ad25e19a034f9d03e9800bcf2812f8739680003b0d145c8724dcfba1bc29ea04",
+          "policy_model_version": "sherlock_match_decision_engine_v1",
+          "review_count": 69,
+          "review_metrics": {
+            "review_precision": 0.2029,
+            "review_rate": 0.2371
+          },
+          "route_venue_conflicts_to_review": false,
+          "timings_seconds": {
+            "clustering": 0.0036,
+            "matching": 0.0427
+          }
+        },
+        "calibrated_evidence": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 0.9268,
+            "precision": 0.95,
+            "recall": 0.9048,
+            "specificity": 0.9955
+          },
+          "clustering_default": {
+            "cluster_purity": 0.9943,
+            "clusters_count": 155,
+            "multi_record_clusters": 19,
+            "pairwise_f1": 0.8571,
+            "pairwise_fn": 5,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9474,
+            "pairwise_recall": 0.7826,
+            "pairwise_tn": 15027,
+            "pairwise_tp": 18,
+            "singleton_clusters": 136
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 0.9943,
+            "clusters_count": 155,
+            "multi_record_clusters": 19,
+            "pairwise_f1": 0.8571,
+            "pairwise_fn": 5,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.9474,
+            "pairwise_recall": 0.7826,
+            "pairwise_tn": 15027,
+            "pairwise_tp": 18,
+            "singleton_clusters": 136
+          },
+          "confusion_matrix": {
+            "fn_non_match": 2,
+            "fn_operational": 4,
+            "fp": 1,
+            "fp_in_review": 47,
+            "tn_non_match": 220,
+            "tp": 19,
+            "tp_in_review": 2
+          },
+          "decisions_total": 291,
+          "match_count": 20,
+          "match_threshold": 0.72,
+          "name_weight": 0.6,
+          "non_match_count": 222,
+          "non_match_threshold": 0.35,
+          "operational_metrics_strict": {
+            "f1": 0.8837,
+            "precision": 0.95,
+            "recall": 0.8261
+          },
+          "policy_fingerprint": "6b2af4524e3269a9616ac602e3a4298048945fb72be6569327a86694223c8361",
+          "policy_model_version": "sherlock_match_decision_engine_v2_calibrated",
+          "review_count": 49,
+          "review_metrics": {
+            "review_precision": 0.0408,
+            "review_rate": 0.1684
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0034,
+            "matching": 0.0548
+          }
+        }
+      },
+      "record_count": 174,
+      "subcorpus_isolated_blocking_diagnostic": {
+        "candidate_recall": 1.0,
+        "candidates_count": 1829,
+        "covered_positives": 23,
+        "explanation": "When blocking runs on an isolated sub-corpus, high-frequency keys that exceed max_block_size=50 in the full corpus have <= 50 records in the smaller sub-corpus, preventing them from being pruned.",
+        "reduction_ratio": 0.8785,
+        "runtime_seconds": 0.0183
+      },
+      "total_possible_pairs": 15051
+    },
+    "val": {
+      "candidate_generation": {
+        "candidate_precision": 0.073826,
+        "candidate_recall": 1.0,
+        "candidates_count": 298,
+        "covered_positives": 22,
+        "reduction_ratio": 0.9797,
+        "runtime_seconds": 0.0849
+      },
+      "entity_count": 150,
+      "ground_truth_positives": 22,
+      "partition_fingerprint": "b86bc12c521094f69db8e9af241fe4296f09058b803c481042ff28c6702f8e36",
+      "partition_name": "VAL (Validation 20%)",
+      "policies": {
+        "autonomous_high_precision": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 0.9744,
+            "precision": 1.0,
+            "recall": 0.95,
+            "specificity": 1.0
+          },
+          "clustering_default": {
+            "cluster_purity": 1.0,
+            "clusters_count": 153,
+            "multi_record_clusters": 19,
+            "pairwise_f1": 0.9268,
+            "pairwise_fn": 3,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.8636,
+            "pairwise_tn": 14684,
+            "pairwise_tp": 19,
+            "singleton_clusters": 134
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 1.0,
+            "clusters_count": 153,
+            "multi_record_clusters": 19,
+            "pairwise_f1": 0.9268,
+            "pairwise_fn": 3,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.8636,
+            "pairwise_tn": 14684,
+            "pairwise_tp": 19,
+            "singleton_clusters": 134
+          },
+          "confusion_matrix": {
+            "fn_non_match": 1,
+            "fn_operational": 3,
+            "fp": 0,
+            "fp_in_review": 89,
+            "tn_non_match": 187,
+            "tp": 19,
+            "tp_in_review": 2
+          },
+          "decisions_total": 298,
+          "match_count": 19,
+          "match_threshold": 0.82,
+          "name_weight": 0.6,
+          "non_match_count": 188,
+          "non_match_threshold": 0.3,
+          "operational_metrics_strict": {
+            "f1": 0.9268,
+            "precision": 1.0,
+            "recall": 0.8636
+          },
+          "policy_fingerprint": "f59079df429fdc7442aa41cbcafea87385dd9fac5e56c916e2578c4335f31f17",
+          "policy_model_version": "sherlock_match_decision_engine_v2_high_precision",
+          "review_count": 91,
+          "review_metrics": {
+            "review_precision": 0.022,
+            "review_rate": 0.3054
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0033,
+            "matching": 0.0575
+          }
+        },
+        "baseline": {
+          "attribute_weight": 0.35,
+          "autonomous_metrics": {
+            "f1": 0.2667,
+            "precision": 0.6667,
+            "recall": 0.1667,
+            "specificity": 0.9952
+          },
+          "clustering_default": {
+            "cluster_purity": 0.9942,
+            "clusters_count": 169,
+            "multi_record_clusters": 3,
+            "pairwise_f1": 0.16,
+            "pairwise_fn": 20,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.6667,
+            "pairwise_recall": 0.0909,
+            "pairwise_tn": 14683,
+            "pairwise_tp": 2,
+            "singleton_clusters": 166
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 0.9942,
+            "clusters_count": 169,
+            "multi_record_clusters": 3,
+            "pairwise_f1": 0.16,
+            "pairwise_fn": 20,
+            "pairwise_fp": 1,
+            "pairwise_precision": 0.6667,
+            "pairwise_recall": 0.0909,
+            "pairwise_tn": 14683,
+            "pairwise_tp": 2,
+            "singleton_clusters": 166
+          },
+          "confusion_matrix": {
+            "fn_non_match": 10,
+            "fn_operational": 20,
+            "fp": 1,
+            "fp_in_review": 66,
+            "tn_non_match": 209,
+            "tp": 2,
+            "tp_in_review": 10
+          },
+          "decisions_total": 298,
+          "match_count": 3,
+          "match_threshold": 0.75,
+          "name_weight": 0.65,
+          "non_match_count": 219,
+          "non_match_threshold": 0.38,
+          "operational_metrics_strict": {
+            "f1": 0.16,
+            "precision": 0.6667,
+            "recall": 0.0909
+          },
+          "policy_fingerprint": "21e40034f9845b58e4b708c16ee3be1c623b7ff98e6724418c8a7004a1404f2c",
+          "policy_model_version": "sherlock_match_decision_engine_v1",
+          "review_count": 76,
+          "review_metrics": {
+            "review_precision": 0.1316,
+            "review_rate": 0.255
+          },
+          "route_venue_conflicts_to_review": false,
+          "timings_seconds": {
+            "clustering": 0.0037,
+            "matching": 0.0444
+          }
+        },
+        "calibrated_evidence": {
+          "attribute_weight": 0.4,
+          "autonomous_metrics": {
+            "f1": 0.9756,
+            "precision": 1.0,
+            "recall": 0.9524,
+            "specificity": 1.0
+          },
+          "clustering_default": {
+            "cluster_purity": 1.0,
+            "clusters_count": 152,
+            "multi_record_clusters": 20,
+            "pairwise_f1": 0.9524,
+            "pairwise_fn": 2,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.9091,
+            "pairwise_tn": 14684,
+            "pairwise_tp": 20,
+            "singleton_clusters": 132
+          },
+          "clustering_full_clique": {
+            "cluster_purity": 1.0,
+            "clusters_count": 152,
+            "multi_record_clusters": 20,
+            "pairwise_f1": 0.9524,
+            "pairwise_fn": 2,
+            "pairwise_fp": 0,
+            "pairwise_precision": 1.0,
+            "pairwise_recall": 0.9091,
+            "pairwise_tn": 14684,
+            "pairwise_tp": 20,
+            "singleton_clusters": 132
+          },
+          "confusion_matrix": {
+            "fn_non_match": 1,
+            "fn_operational": 2,
+            "fp": 0,
+            "fp_in_review": 64,
+            "tn_non_match": 212,
+            "tp": 20,
+            "tp_in_review": 1
+          },
+          "decisions_total": 298,
+          "match_count": 20,
+          "match_threshold": 0.72,
+          "name_weight": 0.6,
+          "non_match_count": 213,
+          "non_match_threshold": 0.35,
+          "operational_metrics_strict": {
+            "f1": 0.9524,
+            "precision": 1.0,
+            "recall": 0.9091
+          },
+          "policy_fingerprint": "d7f17044f988c1dbf2bb412f01959209800f4a21a61a94fb0fc56d48a8635d42",
+          "policy_model_version": "sherlock_match_decision_engine_v2_calibrated",
+          "review_count": 65,
+          "review_metrics": {
+            "review_precision": 0.0154,
+            "review_rate": 0.2181
+          },
+          "route_venue_conflicts_to_review": true,
+          "timings_seconds": {
+            "clustering": 0.0033,
+            "matching": 0.0573
+          }
+        }
+      },
+      "record_count": 172,
+      "subcorpus_isolated_blocking_diagnostic": {
+        "candidate_recall": 1.0,
+        "candidates_count": 2294,
+        "covered_positives": 22,
+        "explanation": "When blocking runs on an isolated sub-corpus, high-frequency keys that exceed max_block_size=50 in the full corpus have <= 50 records in the smaller sub-corpus, preventing them from being pruned.",
+        "reduction_ratio": 0.844,
+        "runtime_seconds": 0.0219
+      },
+      "total_possible_pairs": 14706
+    }
+  },
+  "timestamp_epoch": 1791773507.2888467,
+  "total_elapsed_seconds": 6.2514
+}

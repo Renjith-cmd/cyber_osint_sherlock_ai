@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="56" fill="#F7F4F0" stroke="#191629" stroke-width="2.5"/>
+  <path d="M 28 42 L 52 42 L 60 48 L 92 48 L 92 88 L 28 88 Z" fill="#E8DEC8" stroke="#191629" stroke-width="2.5"/>
+  <path d="M 28 54 L 92 54 L 92 88 L 28 88 Z" fill="#F5B18D" stroke="#191629" stroke-width="2"/>
+  <rect x="44" y="64" width="32" height="12" rx="2" fill="#FFFFFF" stroke="#191629" stroke-width="1.2"/>
+  <text x="60" y="73" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" font-weight="800" fill="#191629" text-anchor="middle">EVIDENCE</text>
+</svg>
